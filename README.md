@@ -1,17 +1,11 @@
 # github-codeowners
 A CLI tool for working with GitHub CODEOWNERS.
 
-It can:
+Things it does:
 * Output who owns each file in your repo (`.gitignore` is factored)
 * Output who owns a single file
-
-Its limits:
-* It requires node
-* It is not optimized
-* It has 0 test coverage (there will be be bugs)
-* It's not tested in the wild (YMMV based on OS and node versions etc)
-* The output interface might change
-* Some code could be better generalized (command setup, writers)
+* Output who owns files based on a `git diff`
+* Outputs in CSV and JSONL
 
 ## Installation
 To install, first clone then:
@@ -21,12 +15,7 @@ $ github-codeowners --help
 Usage: github-codeowners [options] [command]
 ```
 
-To uninstall:
-```
-$ npm uninstall -g github-codeowners
-```
-
-## Usage
+## Commands
 ### Audit
 Compares every file in your current (or specified) directory against your CODEOWNERS rules and outputs the result of who owns each file.
 ```
@@ -129,6 +118,14 @@ Check `github-codeowners <command> --help` for support for a given command, howe
 * `simple` - tab delimited - terminal friendly output
 * `jsonl` - line separated json - useful for streaming data to another command
 * `csv` - csv delimited fields - useful to import into a spreadsheet tool of your choice
+
+## Limits and Things to Improve
+* It requires node
+* It is not optimized
+* It has 0 test coverage (there will be be bugs)
+* It's not tested in the wild (YMMV based on OS and node versions etc)
+* The output interface might change
+* Some code could be better generalized (command setup, writers)
 
 ## Shout outs
 Inspired by [codeowners](https://github.com/beaugunderson/codeowners#readme) but implemented in Typescript with extra bells and whistles.
