@@ -1,0 +1,17 @@
+{
+  "extends": "tslint-config-airbnb-base",
+  "rules": {
+    "brace-style": [
+      "error",
+      "stroustrup",
+      {
+        "allowSingleLine": true
+      }
+    ],
+    "no-magic-numbers": false,
+    "ter-max-len": [
+      "warn",
+      200
+    ]
+  }
+}
