@@ -1,25 +1,51 @@
-import { OwnedPath, Stats } from './types';
+import { Counters, File, Stats } from './types';
 
-export const statsFromOwnedPaths = (paths: OwnedPath[]): Stats => {
-  let unloved = 0;
-  const ownerCount = new Map<string, number>();
+export const calcFileStats = (files: File[]): Stats => {
+  const total: Counters = {
+    files: 0,
+    lines: 0,
+  };
 
-  for (const path of paths) {
-    if (path.owners.length < 1) {
-      unloved++;
+  const unloved: Counters = {
+    files: 0,
+    lines: 0,
+  };
+
+  const ownerCount = new Map<string, Counters>();
+
+  for (const file of files) {
+    total.files++;
+    total.lines += file.lines;
+
+    if (file.owners.length < 1) {
+      unloved.files++;
+      unloved.lines += file.lines;
     } else {
-      for (const owner of path.owners) {
-        const count = ownerCount.get(owner) || 0;
-        ownerCount.set(owner, count + 1);
+      for (const owner of file.owners) {
+        const counts = ownerCount.get(owner) || { files: 0, lines: 0 };
+        counts.files++;
+        counts.lines += file.lines;
+        ownerCount.set(owner, counts);
       }
     }
   }
 
   return {
-    count: paths.length,
-    unloved: paths.filter(path => path.owners.length < 1).length,
+    total,
+    unloved,
+    loved: {
+      files: total.files - unloved.files,
+      lines: total.lines - unloved.lines,
+    },
     owners: Array.from(ownerCount.keys()).map((owner) => {
-      return { owner, count: ownerCount.get(owner) || 0 };
+      const counts = ownerCount.get(owner);
+      return {
+        owner,
+        counters: {
+          files: counts ? counts.files : 0,
+          lines: counts ? counts.lines : 0,
+        },
+      };
     }),
   };
 };

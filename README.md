@@ -2,10 +2,11 @@
 A CLI tool for working with GitHub CODEOWNERS.
 
 Things it does:
-* Output who owns each file in your repo (`.gitignore` is factored)
+* Output who owns each file in your repo (ignoring files listed in `.gitignore`)
 * Output who owns a single file
 * Output who owns files based on a `git diff`
 * Outputs in CSV and JSONL
+* Outputs lots of lovely stats
 
 ## Installation
 To install, first clone then:
@@ -33,6 +34,16 @@ Only unowned files:
 $ github-codeowners audit -u 
 ```
 
+Only files in a specific directory:
+```
+$ github-codeowners audit -i src/
+```
+
+Ownership stats:
+```
+$ github-codeowners audit -s
+```
+
 Full usage information:
 ```
 $ github-codeowners audit --help
@@ -46,6 +57,7 @@ Options:
   -o, --output <outputFormat>  how to output format eg: simple, jsonl, csv (default: "simple")
   -u, --unloved                unowned files only (default: false)
   -s, --stats                  output stats (default: true)
+  -i, --include <partialPath>  paths begening with partial path only (default: '')
   -h, --help                   output usage information
 ```
 
@@ -76,6 +88,11 @@ Provides a list of files with their owners between commits (against the **curren
 
 The stats option here can be super useful to help you understand if other people will have a lot of work in reviewing your PR. 
 
+Owners  of unstaged changes:
+```
+$ github-codeowners git
+```
+
 Diff between a single commit and HEAD:
 ```
 $ cd <your awesome project>
@@ -87,16 +104,10 @@ Diff between two commits:
 $ github-codeowners git <commit sha> <commit sha>
 ```
 
-Diff staged files and HEAD:
-```
-$ github-codeowners git
-```
-
 Output stats:
 ```
 $ github-codeowners git -s
 ```
-
 
 Full usage:
 ```

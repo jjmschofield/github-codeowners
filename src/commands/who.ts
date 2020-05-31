@@ -1,5 +1,7 @@
-import { CodeOwners } from '../lib/CodeOwners';
-import { OUTPUT_FORMAT, OwnedPath } from '../lib/types';
+import { OwnershipEngine } from '../lib/OwnershipEngine';
+import { OwnedFile } from '../lib/OwnedFile';
+import { OUTPUT_FORMAT } from '../lib/types';
+import { writeOwnedFile } from '../lib/writers';
 
 interface WhoOptions {
   file: string;
@@ -9,29 +11,7 @@ interface WhoOptions {
 }
 
 export const who = async (options: WhoOptions) => {
-  const owners = CodeOwners.FromFile(options.codeowners);
-  const owned = owners.getOwners(options.file);
-  write(owned, options, process.stdout);
-};
-
-const write = (owned: OwnedPath, options: WhoOptions, stream: any) => {
-  switch (options.output) {
-    case(OUTPUT_FORMAT.JSONL):
-      stream.write(`${JSON.stringify(owned)}\n`);
-      break;
-    case(OUTPUT_FORMAT.CSV):
-      if (owned.owners.length > 0) {
-        stream.write(`${owned.owners.join(',')}\n`);
-      } else {
-        stream.write('unloved :(\n');
-      }
-      break;
-    default:
-      if (owned.owners.length > 0) {
-        stream.write(`${owned.owners.join('\t')}\n`);
-      } else {
-        stream.write('unloved :(\n');
-      }
-      break;
-  }
+  const engine = OwnershipEngine.FromCodeownersFile(options.codeowners);
+  const file = await OwnedFile.FromPath(options.file, engine);
+  writeOwnedFile(file, options, process.stdout);
 };
