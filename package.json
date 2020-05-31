@@ -12,6 +12,10 @@
   },
   "author": "jjmschofield@googlemail.com",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jjmschofield/github-codeowners"
+  },
   "dependencies": {
     "commander": "^4.1.1",
     "ignore": "^5.1.4",
