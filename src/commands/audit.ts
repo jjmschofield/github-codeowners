@@ -24,11 +24,13 @@ export const audit = async (options: AuditOptions) => {
   }
 
   for (const file of files) {
-    if (options.unloved && file.owners.length < 1) {
-      return;
+    if (options.unloved) {
+      if (file.owners.length < 1) {
+        writeOwnedFile(file, options, process.stdout);
+      }
+    } else {
+      writeOwnedFile(file, options, process.stdout);
     }
-
-    writeOwnedFile(file, options, process.stdout);
   }
 };
 

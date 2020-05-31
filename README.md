@@ -9,9 +9,9 @@ Things it does:
 * Outputs lots of lovely stats
 
 ## Installation
-To install, first clone then:
-```
-$ npm i -g .
+Install via npm globally then run
+```shell script
+$ npm i -g github-codeowners
 $ github-codeowners --help 
 Usage: github-codeowners [options] [command]
 ```
@@ -19,33 +19,56 @@ Usage: github-codeowners [options] [command]
 ## Commands
 ### Audit
 Compares every file in your current (or specified) directory against your CODEOWNERS rules and outputs the result of who owns each file.
-```
+```shell script
 $ cd <your awesome project> 
 $ github-codeowners audit
-```
-
-Output to JSONL to a target file:
-```
-$ github-codeowners audit -o jsonl > file-owners.jsonl 
-```
-
-Only unowned files:
-```
-$ github-codeowners audit -u 
-```
-
-Only files in a specific directory:
-```
-$ github-codeowners audit -i src/
+README.md
+package.json
+src/cli.ts      @jjmschofield
+...
 ```
 
 Ownership stats:
-```
+```shell script
 $ github-codeowners audit -s
+--- Counts ---
+Total: 24 files (1378 lines)
+Loved: 10 files (494 lines)
+Unloved: 14 files (884 lines)
+--- Owners ---
+@jjmschofield: 10 files (494 lines)
+```
+
+Only files in a specific directory:
+```shell script
+$ github-codeowners audit -r src/
+src/cli.ts      @jjmschofield
+src/commands/audit.ts   @jjmschofield
+...
+```
+
+Only unowned files:
+```shell script
+$ github-codeowners audit -u
+.github/CODEOWNERS
+.gitignore
+```
+
+Output to in JSONL:
+```shell script
+$ github-codeowners audit -o jsonl
+{"path":"src/commands/audit.ts","owners":["@jjmschofield"],"lines":48}
+...
+```
+
+Output in CSV:
+```shell script
+$ github-codeowners audit -o csv
+src/commands/audit.ts,@jjmschofield
 ```
 
 Full usage information:
-```
+```shell script
 $ github-codeowners audit --help
 Usage: github-codeowners audit [options]
 
@@ -63,14 +86,14 @@ Options:
 
 ### Who
 Tells you who owns a given file: 
-```
+```shell script
 $ cd <your awesome project> 
 $ github-codeowners who <file>
 @some/team
 ```
 
 Full usage:
-```
+```shell script
 $ github-codeowners who --help                   
 Usage: github-codeowners who [options] <file>
 
@@ -89,28 +112,28 @@ Provides a list of files with their owners between commits (against the **curren
 The stats option here can be super useful to help you understand if other people will have a lot of work in reviewing your PR. 
 
 Owners  of unstaged changes:
-```
+```shell script
 $ github-codeowners git
 ```
 
 Diff between a single commit and HEAD:
-```
+```shell script
 $ cd <your awesome project>
 $ github-codeowners git <commit sha>
 ```
 
 Diff between two commits:
-```
+```shell script
 $ github-codeowners git <commit sha> <commit sha>
 ```
 
 Output stats:
-```
+```shell script
 $ github-codeowners git -s
 ```
 
 Full usage:
-```
+```shell script
 $ github-codeowners git --help                                                                                       
 Usage: github-codeowners git [options] [shaA] [shaB]
 

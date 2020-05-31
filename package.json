@@ -1,23 +1,24 @@
 {
   "name": "github-codeowners",
   "version": "0.0.1",
-  "description": "",
+  "description": "Handy tool for working with file ownership using Githubs CODEOWNERS file",
   "main": "dist/cli.js",
+  "files": ["dist/**/*"],
   "scripts": {
-    "preinstall": "npm run build",
+    "prepare": "npm run build",
     "build": "rm -rf dist && tsc",
     "cli": "ts-node src/cli.ts",
     "dist:cli": "tsc && node dist/cli.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "jjmschofield@googlemail.com",
+  "license": "MIT",
   "dependencies": {
-    "@types/node": "^13.7.6",
     "commander": "^4.1.1",
     "ignore": "^5.1.4",
     "recursive-readdir": "^2.2.2"
   },
   "devDependencies": {
+    "@types/node": "^13.7.6",
     "ts-node": "^8.6.2",
     "tslint": "^6.0.0",
     "tslint-config-airbnb-base": "^0.3.0",
