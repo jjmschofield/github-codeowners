@@ -10,6 +10,7 @@
     "prepare": "npm run build",
     "build": "rm -rf dist && tsc",
     "cli": "ts-node src/cli.ts",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "dist:cli": "tsc && node dist/cli.js"
   },
   "author": "jjmschofield@googlemail.com",

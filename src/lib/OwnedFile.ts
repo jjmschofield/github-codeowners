@@ -1,5 +1,6 @@
 import { OwnershipEngine } from './OwnershipEngine';
 import * as fs from 'fs';
+import { log } from './logger';
 
 export class OwnedFile {
   // tslint:disable-next-line:variable-name
@@ -49,7 +50,7 @@ const countLinesInFile = async (filePath: string): Promise<number> => {
   return new Promise((resolve, reject) => {
     fs.createReadStream(filePath)
       .on('error', (e) => {
-        console.error(`failed to read lines from file ${filePath}`, e);
+        log.error(`failed to read lines from file ${filePath}`, e);
         reject(e);
       })
       .on('data', (chunk) => {
