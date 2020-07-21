@@ -14,18 +14,17 @@ export class OwnershipEngine {
   }
 
   public calcFileOwnership(filePath: string): string[] {
-    let matching : FileOwnershipMatcher | null = null;
+    // We reverse the matchers so that the first matching rule encountered
+    // will be the last from CODEOWNERS, respecting precedence correctly and performantly
+    const matchers = [...this.matchers].reverse();
 
-    // Enumerate all matching rules
-    for (const matcher of this.matchers) {
-      // Test to see if this matcher is a hit for the file path
+    for (const matcher of matchers) {
       if (matcher.match(filePath)) {
-        // Update the selected matcher to the matching rule, this will result in later rules taking precedence
-        matching = matcher;
+        return matcher.owners;
       }
     }
 
-    return matching ? matching.owners : [];
+    return [];
   }
 
   public static FromCodeownersFile(filePath: string) {
