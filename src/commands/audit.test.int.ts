@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { generateProject } from './__tests__/project.test.fixture';
+import { generateProject } from './__fixtures__/project.fixture';
 
 import util from 'util';
 
