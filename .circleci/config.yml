@@ -81,6 +81,19 @@ jobs:
       - store_test_results:
           path: tests/reports/int
 
+  release:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
+      - run:
+          name: Publish package
+          command: npm publish
+
 workflows:
   version: 2
   build_and_test:
@@ -98,3 +111,54 @@ workflows:
       - test_int:
           requires:
             - build
+
+  release:
+    jobs:
+      - dependencies:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - lint:
+          requires:
+            - dependencies
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - test_unit:
+          requires:
+            - lint
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - build:
+          requires:
+            - lint
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - test_int:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - release:
+          requires:
+            - test_unit
+            - test_int
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+
