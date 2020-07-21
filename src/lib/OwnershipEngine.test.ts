@@ -31,22 +31,23 @@ describe('OwnershipEngine', () => {
       expect(result).toEqual(expectedOwners);
     });
 
-    it('should (incorrectly) augment owners when there are multiple matching rules', () => {
-      // see https://github.com/jjmschofield/github-codeowners/issues/2
+    it('should should take precedence from the last matching rule', () => {
       // Arrange
-      const expectedOwners = ['@owner-1', '@owner-2'];
+      const expectedOwner = '@owner-2';
+      const unexpectedOwner = '@owner-1';
       const path = 'my/awesome/file.ts';
 
       const underTest = new OwnershipEngine([
-        createFileOwnershipMatcher(path, [expectedOwners[0]]),
-        createFileOwnershipMatcher(path, [expectedOwners[1]]),
+        createFileOwnershipMatcher(path, [unexpectedOwner]),
+        createFileOwnershipMatcher(path, [expectedOwner]),
       ]);
 
       // Act
       const result = underTest.calcFileOwnership(path);
 
       // Assert
-      expect(result).toEqual(expectedOwners);
+      expect(result).toContainEqual(expectedOwner);
+      expect(result).not.toContainEqual(unexpectedOwner);
     });
   });
 });
