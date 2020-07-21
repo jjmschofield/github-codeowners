@@ -14,7 +14,8 @@
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test:unit": "jest",
     "test:unit:coverage": "npm run test:unit -- --coverage",
-    "test:unit:coverage": "npm run test:unit -- --coverage"
+    "pretest:int": "rm -rf tests/scratch",
+    "test:int": "env JEST_JUNIT_OUTPUT_DIR=./tests/reports/int jest --testMatch  **/*.test.int.ts --ci"
   },
   "author": "jjmschofield@googlemail.com",
   "license": "MIT",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.5",
     "@types/node": "^13.7.6",
+    "@types/uuid": "^8.0.0",
     "coveralls": "^3.1.0",
     "jest": "^26.1.0",
     "jest-junit": "^11.0.1",
@@ -37,7 +39,8 @@
     "ts-node": "^8.6.2",
     "tslint": "^6.0.0",
     "tslint-config-airbnb-base": "^0.3.0",
-    "typescript": "^3.8.2"
+    "typescript": "^3.8.2",
+    "uuid": "^8.2.0"
   },
   "bin": "dist/cli.js",
   "engines": {

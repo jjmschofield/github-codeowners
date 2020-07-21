@@ -66,21 +66,21 @@ jobs:
           name: Coveralls
           command: export COVERALLS_GIT_COMMIT=$CIRCLE_SHA1 && npm run coveralls < tests/reports/unit/coverage/lcov.info
 
-#  test_int:
-#    docker:
-#      <<: *defaults
-#    steps:
-#      - checkout
-#      - attach_workspace:
-#          at: .
-#      - run:
-#          name: Unit Tests
-#          command: npm run test:int
-#      - store_artifacts:
-#          path: tests/reports/int/junit.xml
-#          prefix: tests
-#      - store_test_results:
-#          path: tests/reports/int
+  test_int: #TODO - multiple node envs
+    docker:
+      <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Unit Tests
+          command: npm run test:int
+      - store_artifacts:
+          path: tests/reports/int/junit.xml
+          prefix: tests
+      - store_test_results:
+          path: tests/reports/int
 
 workflows:
   version: 2
@@ -96,6 +96,6 @@ workflows:
       - build:
           requires:
             - lint
-#      - test_int:
-#          requires:
-#            - build
+      - test_int:
+          requires:
+            - build
