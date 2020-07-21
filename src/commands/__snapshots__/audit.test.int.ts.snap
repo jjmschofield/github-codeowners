@@ -7,11 +7,11 @@ exports[`audit csv should calculate stats when asked: stdout 1`] = `
 total,12,30
 loved,12,30
 unloved,0,0
+@doctocat,2,0
 @global-owner1,5,30
 @global-owner2,5,30
-@octocat,4,0
-@doctocat,2,0
 @js-owner,1,0
+@octocat,4,0
 "
 `;
 
@@ -109,11 +109,11 @@ Total: 12 files (30 lines)
 Loved: 12 files (30 lines)
 Unloved: 0 files (0 lines)
 --- Owners ---
+@doctocat: 2 files (0 lines)
 @global-owner1: 5 files (30 lines)
 @global-owner2: 5 files (30 lines)
-@octocat: 4 files (0 lines)
-@doctocat: 2 files (0 lines)
 @js-owner: 1 files (0 lines)
+@octocat: 4 files (0 lines)
 "
 `;
 
