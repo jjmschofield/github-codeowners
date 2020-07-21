@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import ignore from 'ignore';
 import { FileOwnershipMatcher } from './types';
+import { log } from './logger';
 
 export class OwnershipEngine {
   private readonly matchers: FileOwnershipMatcher[];
@@ -41,7 +42,7 @@ export class OwnershipEngine {
 
       return new OwnershipEngine(owned);
     } catch (error) {
-      console.error(`failed to load codeowners file from ${filePath}`, error);
+      log.error(`failed to load codeowners file from ${filePath}`, error);
       throw error;
     }
   }

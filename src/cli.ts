@@ -6,6 +6,7 @@ import commander from 'commander';
 import { audit } from './commands/audit';
 import { who } from './commands/who';
 import { git } from './commands/git';
+import { log } from './lib/logger';
 
 import { OUTPUT_FORMAT } from './lib/types';
 
@@ -25,7 +26,7 @@ commander.command('audit')
 
       await audit(options);
     } catch (error) {
-      console.error(error);
+      log.error('failed to run audit command', error);
       process.exit(1);
     }
   });
@@ -49,7 +50,7 @@ commander.command('who <file>')
 
       await who(options);
     } catch (error) {
-      console.error(error);
+      log.error('failed to run who command', error);
       process.exit(1);
     }
   });
@@ -71,7 +72,7 @@ commander.command('git [shaA] [shaB]')
 
       await git(options);
     } catch (error) {
-      console.error(error);
+      log.error('failed to run git command', error);
       process.exit(1);
     }
   });
