@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`audit should list ownership for all files 1`] = `
+".github/CODEOWNERS	@global-owner1	@global-owner2
+.gitignore	@global-owner1	@global-owner2
+README.md	@global-owner1	@global-owner2
+apps/some-file.js	@global-owner1	@global-owner2	@js-owner	@octocat
+apps/some-file.ts	@global-owner1	@global-owner2	@octocat
+build/logs/log.log	@global-owner1	@global-owner2	@doctocat
+deep/apps/some-file.js	@global-owner1	@global-owner2	@js-owner	@octocat
+deep/apps/some-file.ts	@global-owner1	@global-owner2	@octocat
+deep/build/logs/log.log	@global-owner1	@global-owner2
+deep/docs/SOMEDOC.md	@global-owner1	@global-owner2
+docs/SOMEDOC.md	@global-owner1	@global-owner2	docs@example.com	@doctocat
+src/index.js	@global-owner1	@global-owner2	@js-owner
+"
+`;
+
+exports[`audit should list ownership for all files 2`] = `""`;
