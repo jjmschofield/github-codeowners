@@ -6,24 +6,26 @@ import { log } from './logger';
 export class OwnershipEngine {
   private readonly matchers: FileOwnershipMatcher[];
 
+  /**
+   * @param matchers : FileOwnershipMatcher Matchers should be in precedence order, with overriding rules coming last
+   */
   constructor(matchers: FileOwnershipMatcher[]) {
     this.matchers = matchers;
   }
 
   public calcFileOwnership(filePath: string): string[] {
-    const owners: Set<string> = new Set();
+    let matching : FileOwnershipMatcher | null = null;
 
     // Enumerate all matching rules
     for (const matcher of this.matchers) {
       // Test to see if this matcher is a hit for the file path
       if (matcher.match(filePath)) {
-        // Add each of the owners to our owner set
-        matcher.owners.forEach(owner => owners.add(owner));
+        // Update the selected matcher to the matching rule, this will result in later rules taking precedence
+        matching = matcher;
       }
     }
 
-    // Fin
-    return Array.from(owners.values());
+    return matching ? matching.owners : [];
   }
 
   public static FromCodeownersFile(filePath: string) {
