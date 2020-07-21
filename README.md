@@ -1,6 +1,7 @@
 # github-codeowners
 [![CircleCI](https://circleci.com/gh/jjmschofield/github-codeowners/tree/master.svg?style=shield)](https://circleci.com/gh/jjmschofield/github-codeowners/tree/master)
 [![Coverage Status](https://coveralls.io/repos/github/jjmschofield/github-codeowners/badge.svg?branch=master)](https://coveralls.io/github/jjmschofield/github-codeowners?branch=master)
+
 A CLI tool for working with GitHub CODEOWNERS.
 
 Things it does:
