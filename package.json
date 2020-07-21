@@ -15,7 +15,8 @@
     "test:unit": "jest",
     "test:unit:coverage": "npm run test:unit -- --coverage",
     "pretest:int": "rm -rf tests/scratch",
-    "test:int": "env JEST_JUNIT_OUTPUT_DIR=./tests/reports/int jest --testMatch  **/*.test.int.ts --ci"
+    "test:int": "env JEST_JUNIT_OUTPUT_DIR=./tests/reports/int jest --testMatch  **/*.test.int.ts --ci",
+    "coveralls": "coveralls"
   },
   "author": "jjmschofield@googlemail.com",
   "license": "MIT",
