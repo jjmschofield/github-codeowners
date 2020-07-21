@@ -19,9 +19,15 @@ describe('audit', () => {
     return exec(`node  ../../../dist/cli.js ${args}`, { cwd: workingDir });
   };
 
-  it('should list ownership for all files', async () => {
-    const { stdout, stderr } = await runCli('audit');
-    expect(stdout).toMatchSnapshot();
-    expect(stderr).toMatchSnapshot();
-  });
+  const outputs = ['simple', 'jsonl', 'csv'];
+
+  for (const output of outputs) {
+    describe(output, () => {
+      it('should list ownership for all files', async () => {
+        const { stdout, stderr } = await runCli(`audit -o ${output}`);
+        expect(stdout).toMatchSnapshot();
+        expect(stderr).toMatchSnapshot();
+      });
+    });
+  }
 });

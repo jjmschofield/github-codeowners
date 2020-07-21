@@ -1,6 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`audit should list ownership for all files 1`] = `
+exports[`audit csv should list ownership for all files 1`] = `
+".github/CODEOWNERS,@global-owner1,@global-owner2
+.gitignore,@global-owner1,@global-owner2
+README.md,@global-owner1,@global-owner2
+apps/some-file.js,@global-owner1,@global-owner2,@js-owner,@octocat
+apps/some-file.ts,@global-owner1,@global-owner2,@octocat
+build/logs/log.log,@global-owner1,@global-owner2,@doctocat
+deep/apps/some-file.js,@global-owner1,@global-owner2,@js-owner,@octocat
+deep/apps/some-file.ts,@global-owner1,@global-owner2,@octocat
+deep/build/logs/log.log,@global-owner1,@global-owner2
+deep/docs/SOMEDOC.md,@global-owner1,@global-owner2
+docs/SOMEDOC.md,@global-owner1,@global-owner2,docs@example.com,@doctocat
+src/index.js,@global-owner1,@global-owner2,@js-owner
+"
+`;
+
+exports[`audit csv should list ownership for all files 2`] = `""`;
+
+exports[`audit jsonl should list ownership for all files 1`] = `
+"{\\"path\\":\\".github/CODEOWNERS\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":30}
+{\\"path\\":\\".gitignore\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":0}
+{\\"path\\":\\"README.md\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":0}
+{\\"path\\":\\"apps/some-file.js\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\",\\"@js-owner\\",\\"@octocat\\"],\\"lines\\":0}
+{\\"path\\":\\"apps/some-file.ts\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\",\\"@octocat\\"],\\"lines\\":0}
+{\\"path\\":\\"build/logs/log.log\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\",\\"@doctocat\\"],\\"lines\\":0}
+{\\"path\\":\\"deep/apps/some-file.js\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\",\\"@js-owner\\",\\"@octocat\\"],\\"lines\\":0}
+{\\"path\\":\\"deep/apps/some-file.ts\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\",\\"@octocat\\"],\\"lines\\":0}
+{\\"path\\":\\"deep/build/logs/log.log\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":0}
+{\\"path\\":\\"deep/docs/SOMEDOC.md\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":0}
+{\\"path\\":\\"docs/SOMEDOC.md\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\",\\"docs@example.com\\",\\"@doctocat\\"],\\"lines\\":0}
+{\\"path\\":\\"src/index.js\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\",\\"@js-owner\\"],\\"lines\\":0}
+"
+`;
+
+exports[`audit jsonl should list ownership for all files 2`] = `""`;
+
+exports[`audit simple should list ownership for all files 1`] = `
 ".github/CODEOWNERS	@global-owner1	@global-owner2
 .gitignore	@global-owner1	@global-owner2
 README.md	@global-owner1	@global-owner2
@@ -16,4 +52,4 @@ src/index.js	@global-owner1	@global-owner2	@js-owner
 "
 `;
 
-exports[`audit should list ownership for all files 2`] = `""`;
+exports[`audit simple should list ownership for all files 2`] = `""`;
