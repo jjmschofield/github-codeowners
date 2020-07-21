@@ -154,6 +154,7 @@ workflows:
               ignore: /.*/
       - release:
           requires:
+            - test_unit
             - test_int
           filters:
             tags:
