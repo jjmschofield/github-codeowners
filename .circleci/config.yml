@@ -45,26 +45,26 @@ jobs:
           paths:
             - dist/
 
-#  test_unit:
-#    <<: *defaults
-#    steps:
-#      - checkout
-#      - attach_workspace:
-#          at: .
-#      - run:
-#          name: Unit Tests
-#          command: npm run test:unit:coverage
-#      - store_artifacts:
-#          path: tests/reports/unit/junit.xml
-#          prefix: tests
-#      - store_artifacts:
-#          path: tests/reports/unit/coverage
-#          prefix: coverage
-#      - store_test_results:
-#          path: tests/reports/unit
-#      - run:
-#          name: Coveralls
-#          command: export COVERALLS_GIT_COMMIT=$CIRCLE_SHA1 && npm run coveralls < tests/reports/unit/coverage/lcov.info
+  test_unit:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Unit Tests
+          command: npm run test:unit:coverage
+      - store_artifacts:
+          path: tests/reports/unit/junit.xml
+          prefix: tests
+      - store_artifacts:
+          path: tests/reports/unit/coverage
+          prefix: coverage
+      - store_test_results:
+          path: tests/reports/unit
+      - run:
+          name: Coveralls
+          command: export COVERALLS_GIT_COMMIT=$CIRCLE_SHA1 && npm run coveralls < tests/reports/unit/coverage/lcov.info
 
 #  test_int:
 #    docker:
@@ -90,9 +90,9 @@ workflows:
       - lint:
           requires:
             - dependencies
-#      - test_unit:
-#          requires:
-#            - lint
+      - test_unit:
+          requires:
+            - lint
       - build:
           requires:
             - lint
