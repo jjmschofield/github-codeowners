@@ -1,6 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`audit csv should list ownership for all files 1`] = `
+exports[`audit csv should calculate stats when asked: stderr 1`] = `""`;
+
+exports[`audit csv should calculate stats when asked: stdout 1`] = `
+"owner,files,lines
+total,12,30
+loved,12,30
+unloved,0,0
+@global-owner1,12,30
+@global-owner2,12,30
+@js-owner,3,0
+@octocat,4,0
+@doctocat,2,0
+docs@example.com,1,0
+"
+`;
+
+exports[`audit csv should do all commands in combination when asked: stderr 1`] = `""`;
+
+exports[`audit csv should do all commands in combination when asked: stdout 1`] = `
+"owner,files,lines
+total,0,0
+loved,0,0
+unloved,0,0
+"
+`;
+
+exports[`audit csv should list ownership for all files: stderr 1`] = `""`;
+
+exports[`audit csv should list ownership for all files: stdout 1`] = `
 ".github/CODEOWNERS,@global-owner1,@global-owner2
 .gitignore,@global-owner1,@global-owner2
 README.md,@global-owner1,@global-owner2
@@ -16,9 +44,35 @@ src/index.js,@global-owner1,@global-owner2,@js-owner
 "
 `;
 
-exports[`audit csv should list ownership for all files 2`] = `""`;
+exports[`audit csv should show only unloved files when asked: stderr 1`] = `""`;
 
-exports[`audit jsonl should list ownership for all files 1`] = `
+exports[`audit csv should show only unloved files when asked: stdout 1`] = `""`;
+
+exports[`audit csv should use a specific root when asked: stderr 1`] = `""`;
+
+exports[`audit csv should use a specific root when asked: stdout 1`] = `
+"apps/some-file.js,@global-owner1,@global-owner2,@js-owner,@octocat
+apps/some-file.ts,@global-owner1,@global-owner2,@octocat
+"
+`;
+
+exports[`audit jsonl should calculate stats when asked: stderr 1`] = `""`;
+
+exports[`audit jsonl should calculate stats when asked: stdout 1`] = `
+"{\\"total\\":{\\"files\\":12,\\"lines\\":30},\\"unloved\\":{\\"files\\":0,\\"lines\\":0},\\"loved\\":{\\"files\\":12,\\"lines\\":30},\\"owners\\":[{\\"owner\\":\\"@global-owner1\\",\\"counters\\":{\\"files\\":12,\\"lines\\":30}},{\\"owner\\":\\"@global-owner2\\",\\"counters\\":{\\"files\\":12,\\"lines\\":30}},{\\"owner\\":\\"@js-owner\\",\\"counters\\":{\\"files\\":3,\\"lines\\":0}},{\\"owner\\":\\"@octocat\\",\\"counters\\":{\\"files\\":4,\\"lines\\":0}},{\\"owner\\":\\"@doctocat\\",\\"counters\\":{\\"files\\":2,\\"lines\\":0}},{\\"owner\\":\\"docs@example.com\\",\\"counters\\":{\\"files\\":1,\\"lines\\":0}}]}
+"
+`;
+
+exports[`audit jsonl should do all commands in combination when asked: stderr 1`] = `""`;
+
+exports[`audit jsonl should do all commands in combination when asked: stdout 1`] = `
+"{\\"total\\":{\\"files\\":0,\\"lines\\":0},\\"unloved\\":{\\"files\\":0,\\"lines\\":0},\\"loved\\":{\\"files\\":0,\\"lines\\":0},\\"owners\\":[]}
+"
+`;
+
+exports[`audit jsonl should list ownership for all files: stderr 1`] = `""`;
+
+exports[`audit jsonl should list ownership for all files: stdout 1`] = `
 "{\\"path\\":\\".github/CODEOWNERS\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":30}
 {\\"path\\":\\".gitignore\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":0}
 {\\"path\\":\\"README.md\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":0}
@@ -34,9 +88,52 @@ exports[`audit jsonl should list ownership for all files 1`] = `
 "
 `;
 
-exports[`audit jsonl should list ownership for all files 2`] = `""`;
+exports[`audit jsonl should show only unloved files when asked: stderr 1`] = `""`;
 
-exports[`audit simple should list ownership for all files 1`] = `
+exports[`audit jsonl should show only unloved files when asked: stdout 1`] = `""`;
+
+exports[`audit jsonl should use a specific root when asked: stderr 1`] = `""`;
+
+exports[`audit jsonl should use a specific root when asked: stdout 1`] = `
+"{\\"path\\":\\"apps/some-file.js\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\",\\"@js-owner\\",\\"@octocat\\"],\\"lines\\":0}
+{\\"path\\":\\"apps/some-file.ts\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\",\\"@octocat\\"],\\"lines\\":0}
+"
+`;
+
+exports[`audit simple should calculate stats when asked: stderr 1`] = `""`;
+
+exports[`audit simple should calculate stats when asked: stdout 1`] = `
+"
+--- Counts ---
+Total: 12 files (30 lines)
+Loved: 12 files (30 lines)
+Unloved: 0 files (0 lines)
+--- Owners ---
+@global-owner1: 12 files (30 lines)
+@global-owner2: 12 files (30 lines)
+@js-owner: 3 files (0 lines)
+@octocat: 4 files (0 lines)
+@doctocat: 2 files (0 lines)
+docs@example.com: 1 files (0 lines)
+"
+`;
+
+exports[`audit simple should do all commands in combination when asked: stderr 1`] = `""`;
+
+exports[`audit simple should do all commands in combination when asked: stdout 1`] = `
+"
+--- Counts ---
+Total: 0 files (0 lines)
+Loved: 0 files (0 lines)
+Unloved: 0 files (0 lines)
+--- Owners ---
+
+"
+`;
+
+exports[`audit simple should list ownership for all files: stderr 1`] = `""`;
+
+exports[`audit simple should list ownership for all files: stdout 1`] = `
 ".github/CODEOWNERS	@global-owner1	@global-owner2
 .gitignore	@global-owner1	@global-owner2
 README.md	@global-owner1	@global-owner2
@@ -52,4 +149,14 @@ src/index.js	@global-owner1	@global-owner2	@js-owner
 "
 `;
 
-exports[`audit simple should list ownership for all files 2`] = `""`;
+exports[`audit simple should show only unloved files when asked: stderr 1`] = `""`;
+
+exports[`audit simple should show only unloved files when asked: stdout 1`] = `""`;
+
+exports[`audit simple should use a specific root when asked: stderr 1`] = `""`;
+
+exports[`audit simple should use a specific root when asked: stdout 1`] = `
+"apps/some-file.js	@global-owner1	@global-owner2	@js-owner	@octocat
+apps/some-file.ts	@global-owner1	@global-owner2	@octocat
+"
+`;

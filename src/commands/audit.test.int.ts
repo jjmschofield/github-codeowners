@@ -25,9 +25,35 @@ describe('audit', () => {
     describe(output, () => {
       it('should list ownership for all files', async () => {
         const { stdout, stderr } = await runCli(`audit -o ${output}`);
-        expect(stdout).toMatchSnapshot();
-        expect(stderr).toMatchSnapshot();
+        expect(stdout).toMatchSnapshot('stdout');
+        expect(stderr).toMatchSnapshot('stderr');
       });
+
+      it('should calculate stats when asked', async () => {
+        const { stdout, stderr } = await runCli(`audit -s -o ${output}`);
+        expect(stdout).toMatchSnapshot('stdout');
+        expect(stderr).toMatchSnapshot('stderr');
+      });
+
+      it('should show only unloved files when asked', async () => {
+        const { stdout, stderr } = await runCli(`audit -u -o ${output}`);
+        expect(stdout).toMatchSnapshot('stdout');
+        expect(stderr).toMatchSnapshot('stderr');
+      });
+
+      it('should use a specific root when asked', async () => {
+        const { stdout, stderr } = await runCli(`audit -r apps -o ${output}`);
+        expect(stdout).toMatchSnapshot('stdout');
+        expect(stderr).toMatchSnapshot('stderr');
+      });
+
+      it('should do all commands in combination when asked', async () => {
+        const { stdout, stderr } = await runCli(`audit -rus apps -o ${output}`);
+        expect(stdout).toMatchSnapshot('stdout');
+        expect(stderr).toMatchSnapshot('stderr');
+      });
+
+      // Missing commands -c, -d, -r
     });
   }
 });

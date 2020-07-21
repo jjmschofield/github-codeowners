@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // TODO - this needs breaking up before anything else is added please
+// TODO - this probably needs to offer an interface to allow configuration
 // Process:
 //   A) generate files
 //   B) generate git ignore
