@@ -8,6 +8,7 @@
         "allowSingleLine": true
       }
     ],
+    "ter-arrow-body-style": ["error", "as-needed"],
     "no-magic-numbers": false,
     "ter-max-len": [
       "warn",
