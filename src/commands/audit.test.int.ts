@@ -48,7 +48,7 @@ describe('audit', () => {
       });
 
       it('should do all commands in combination when asked', async () => {
-        const { stdout, stderr } = await runCli(`audit -rus apps -o ${output}`);
+        const { stdout, stderr } = await runCli(`audit -us -r apps -o ${output}`);
         expect(stdout).toMatchSnapshot('stdout');
         expect(stderr).toMatchSnapshot('stderr');
       });

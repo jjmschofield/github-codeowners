@@ -20,9 +20,13 @@ exports[`audit csv should do all commands in combination when asked: stderr 1`] 
 
 exports[`audit csv should do all commands in combination when asked: stdout 1`] = `
 "owner,files,lines
-total,0,0
-loved,0,0
+total,2,0
+loved,2,0
 unloved,0,0
+@global-owner1,2,0
+@global-owner2,2,0
+@js-owner,1,0
+@octocat,2,0
 "
 `;
 
@@ -66,7 +70,7 @@ exports[`audit jsonl should calculate stats when asked: stdout 1`] = `
 exports[`audit jsonl should do all commands in combination when asked: stderr 1`] = `""`;
 
 exports[`audit jsonl should do all commands in combination when asked: stdout 1`] = `
-"{\\"total\\":{\\"files\\":0,\\"lines\\":0},\\"unloved\\":{\\"files\\":0,\\"lines\\":0},\\"loved\\":{\\"files\\":0,\\"lines\\":0},\\"owners\\":[]}
+"{\\"total\\":{\\"files\\":2,\\"lines\\":0},\\"unloved\\":{\\"files\\":0,\\"lines\\":0},\\"loved\\":{\\"files\\":2,\\"lines\\":0},\\"owners\\":[{\\"owner\\":\\"@global-owner1\\",\\"counters\\":{\\"files\\":2,\\"lines\\":0}},{\\"owner\\":\\"@global-owner2\\",\\"counters\\":{\\"files\\":2,\\"lines\\":0}},{\\"owner\\":\\"@js-owner\\",\\"counters\\":{\\"files\\":1,\\"lines\\":0}},{\\"owner\\":\\"@octocat\\",\\"counters\\":{\\"files\\":2,\\"lines\\":0}}]}
 "
 `;
 
@@ -123,11 +127,14 @@ exports[`audit simple should do all commands in combination when asked: stderr 1
 exports[`audit simple should do all commands in combination when asked: stdout 1`] = `
 "
 --- Counts ---
-Total: 0 files (0 lines)
-Loved: 0 files (0 lines)
+Total: 2 files (0 lines)
+Loved: 2 files (0 lines)
 Unloved: 0 files (0 lines)
 --- Owners ---
-
+@global-owner1: 2 files (0 lines)
+@global-owner2: 2 files (0 lines)
+@js-owner: 1 files (0 lines)
+@octocat: 2 files (0 lines)
 "
 `;
 
