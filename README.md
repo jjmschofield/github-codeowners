@@ -8,12 +8,14 @@ A CLI tool for working with GitHub CODEOWNERS.
 Things it does:
 * Output who owns each file in your repo (ignoring files listed in `.gitignore`)
 * Output who owns a single file
-* Output who owns files based on a `git diff`
-* Outputs in CSV and JSONL
+* Output ownership information at a specific git commit
+* Output ownership information of staged files
 * Outputs lots of lovely stats
+* Outputs handy formats for integrations (CSV and JSONL)
 
 ## Installation
 Install via npm globally then run
+
 ```shell script
 $ npm i -g github-codeowners
 $ github-codeowners --help 
@@ -58,7 +60,7 @@ $ github-codeowners audit -u
 .gitignore
 ```
 
-Output to in JSONL:
+Output in JSONL:
 ```shell script
 $ github-codeowners audit -o jsonl
 {"path":"src/commands/audit.ts","owners":["@jjmschofield"],"lines":48}
@@ -93,7 +95,7 @@ Tells you who owns a given file:
 ```shell script
 $ cd <your awesome project> 
 $ github-codeowners who <file>
-@some/team
+<file> @some/team
 ```
 
 Full usage:
@@ -113,16 +115,14 @@ Options:
 ### Git
 Provides a list of files with their owners between commits (against the **current** version of CODEOWNERS).
 
-The stats option here can be super useful to help you understand if other people will have a lot of work in reviewing your PR. 
-
 Ownership of all files staged for commit:
 ```shell script
+$ cd <your awesome project>
 $ github-codeowners git
 ```
 
-Ownership of files at specific commit:
+Ownership of files existing at a specific commit:
 ```shell script
-$ cd <your awesome project>
 $ github-codeowners git <commit sha>
 ```
 
@@ -160,10 +160,8 @@ Check `github-codeowners <command> --help` for support for a given command, howe
 ## Limits and Things to Improve
 * It requires node
 * It is not optimized
-* It has 0 test coverage (there will be be bugs)
-* It's not tested in the wild (YMMV based on OS and node versions etc)
 * The output interface might change
-* Some code could be better generalized (command setup, writers)
+* Command syntax might change
 
 ## Shout outs
 Inspired by [codeowners](https://github.com/beaugunderson/codeowners#readme) but implemented in Typescript with extra bells and whistles.
