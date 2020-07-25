@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`who should list ownership for all files: stderr 1`] = `""`;
+
+exports[`who should list ownership for all files: stdout 1`] = `
+"default-wildcard-owners.md	@global-owner1	@global-owner2
+"
+`;
