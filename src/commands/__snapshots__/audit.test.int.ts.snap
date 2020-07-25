@@ -4,14 +4,14 @@ exports[`audit csv should calculate stats when asked: stderr 1`] = `""`;
 
 exports[`audit csv should calculate stats when asked: stdout 1`] = `
 "owner,files,lines
-total,12,30
-loved,12,30
+total,10,35
+loved,10,35
 unloved,0,0
-@doctocat,2,0
-@global-owner1,5,30
-@global-owner2,5,30
-@js-owner,1,0
-@octocat,4,0
+@doctocat,3,0
+@global-owner1,4,35
+@global-owner2,4,35
+@js-owner,2,0
+@octocat,1,0
 "
 `;
 
@@ -19,10 +19,9 @@ exports[`audit csv should do all commands in combination when asked: stderr 1`] 
 
 exports[`audit csv should do all commands in combination when asked: stdout 1`] = `
 "owner,files,lines
-total,2,0
-loved,2,0
+total,0,0
+loved,0,0
 unloved,0,0
-@octocat,2,0
 "
 `;
 
@@ -31,16 +30,14 @@ exports[`audit csv should list ownership for all files: stderr 1`] = `""`;
 exports[`audit csv should list ownership for all files: stdout 1`] = `
 ".github/CODEOWNERS,@global-owner1,@global-owner2
 .gitignore,@global-owner1,@global-owner2
-README.md,@global-owner1,@global-owner2
-apps/some-file.js,@octocat
-apps/some-file.ts,@octocat
-build/logs/log.log,@doctocat
-deep/apps/some-file.js,@octocat
-deep/apps/some-file.ts,@octocat
-deep/build/logs/log.log,@global-owner1,@global-owner2
-deep/docs/SOMEDOC.md,@global-owner1,@global-owner2
-docs/SOMEDOC.md,@doctocat
-src/index.js,@js-owner
+build/logs/deep/recursive-root-dir-owner.log,@doctocat
+build/logs/recursive-root-dir-owner.log,@doctocat
+deep/apps/recursive-deep-dir-owner.ts,@octocat
+deep/nested-ignore/.gitignore,@global-owner1,@global-owner2
+deep/nested-ignore/overridden-ignore.js,@js-owner
+default-wildcard-owners.md,@global-owner1,@global-owner2
+docs/non-recursive-dir-owner.md,@doctocat
+src/ext-wildcard-owner.js,@js-owner
 "
 `;
 
@@ -50,41 +47,35 @@ exports[`audit csv should show only unloved files when asked: stdout 1`] = `""`;
 
 exports[`audit csv should use a specific root when asked: stderr 1`] = `""`;
 
-exports[`audit csv should use a specific root when asked: stdout 1`] = `
-"apps/some-file.js,@octocat
-apps/some-file.ts,@octocat
-"
-`;
+exports[`audit csv should use a specific root when asked: stdout 1`] = `""`;
 
 exports[`audit jsonl should calculate stats when asked: stderr 1`] = `""`;
 
 exports[`audit jsonl should calculate stats when asked: stdout 1`] = `
-"{\\"total\\":{\\"files\\":12,\\"lines\\":30},\\"unloved\\":{\\"files\\":0,\\"lines\\":0},\\"loved\\":{\\"files\\":12,\\"lines\\":30},\\"owners\\":[{\\"owner\\":\\"@global-owner1\\",\\"counters\\":{\\"files\\":5,\\"lines\\":30}},{\\"owner\\":\\"@global-owner2\\",\\"counters\\":{\\"files\\":5,\\"lines\\":30}},{\\"owner\\":\\"@octocat\\",\\"counters\\":{\\"files\\":4,\\"lines\\":0}},{\\"owner\\":\\"@doctocat\\",\\"counters\\":{\\"files\\":2,\\"lines\\":0}},{\\"owner\\":\\"@js-owner\\",\\"counters\\":{\\"files\\":1,\\"lines\\":0}}]}
+"{\\"total\\":{\\"files\\":10,\\"lines\\":35},\\"unloved\\":{\\"files\\":0,\\"lines\\":0},\\"loved\\":{\\"files\\":10,\\"lines\\":35},\\"owners\\":[{\\"owner\\":\\"@global-owner1\\",\\"counters\\":{\\"files\\":4,\\"lines\\":35}},{\\"owner\\":\\"@global-owner2\\",\\"counters\\":{\\"files\\":4,\\"lines\\":35}},{\\"owner\\":\\"@doctocat\\",\\"counters\\":{\\"files\\":3,\\"lines\\":0}},{\\"owner\\":\\"@octocat\\",\\"counters\\":{\\"files\\":1,\\"lines\\":0}},{\\"owner\\":\\"@js-owner\\",\\"counters\\":{\\"files\\":2,\\"lines\\":0}}]}
 "
 `;
 
 exports[`audit jsonl should do all commands in combination when asked: stderr 1`] = `""`;
 
 exports[`audit jsonl should do all commands in combination when asked: stdout 1`] = `
-"{\\"total\\":{\\"files\\":2,\\"lines\\":0},\\"unloved\\":{\\"files\\":0,\\"lines\\":0},\\"loved\\":{\\"files\\":2,\\"lines\\":0},\\"owners\\":[{\\"owner\\":\\"@octocat\\",\\"counters\\":{\\"files\\":2,\\"lines\\":0}}]}
+"{\\"total\\":{\\"files\\":0,\\"lines\\":0},\\"unloved\\":{\\"files\\":0,\\"lines\\":0},\\"loved\\":{\\"files\\":0,\\"lines\\":0},\\"owners\\":[]}
 "
 `;
 
 exports[`audit jsonl should list ownership for all files: stderr 1`] = `""`;
 
 exports[`audit jsonl should list ownership for all files: stdout 1`] = `
-"{\\"path\\":\\".github/CODEOWNERS\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":30}
-{\\"path\\":\\".gitignore\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":0}
-{\\"path\\":\\"README.md\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":0}
-{\\"path\\":\\"apps/some-file.js\\",\\"owners\\":[\\"@octocat\\"],\\"lines\\":0}
-{\\"path\\":\\"apps/some-file.ts\\",\\"owners\\":[\\"@octocat\\"],\\"lines\\":0}
-{\\"path\\":\\"build/logs/log.log\\",\\"owners\\":[\\"@doctocat\\"],\\"lines\\":0}
-{\\"path\\":\\"deep/apps/some-file.js\\",\\"owners\\":[\\"@octocat\\"],\\"lines\\":0}
-{\\"path\\":\\"deep/apps/some-file.ts\\",\\"owners\\":[\\"@octocat\\"],\\"lines\\":0}
-{\\"path\\":\\"deep/build/logs/log.log\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":0}
-{\\"path\\":\\"deep/docs/SOMEDOC.md\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":0}
-{\\"path\\":\\"docs/SOMEDOC.md\\",\\"owners\\":[\\"@doctocat\\"],\\"lines\\":0}
-{\\"path\\":\\"src/index.js\\",\\"owners\\":[\\"@js-owner\\"],\\"lines\\":0}
+"{\\"path\\":\\".github/CODEOWNERS\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":29}
+{\\"path\\":\\".gitignore\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":4}
+{\\"path\\":\\"build/logs/deep/recursive-root-dir-owner.log\\",\\"owners\\":[\\"@doctocat\\"],\\"lines\\":0}
+{\\"path\\":\\"build/logs/recursive-root-dir-owner.log\\",\\"owners\\":[\\"@doctocat\\"],\\"lines\\":0}
+{\\"path\\":\\"deep/apps/recursive-deep-dir-owner.ts\\",\\"owners\\":[\\"@octocat\\"],\\"lines\\":0}
+{\\"path\\":\\"deep/nested-ignore/.gitignore\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":2}
+{\\"path\\":\\"deep/nested-ignore/overridden-ignore.js\\",\\"owners\\":[\\"@js-owner\\"],\\"lines\\":0}
+{\\"path\\":\\"default-wildcard-owners.md\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":0}
+{\\"path\\":\\"docs/non-recursive-dir-owner.md\\",\\"owners\\":[\\"@doctocat\\"],\\"lines\\":0}
+{\\"path\\":\\"src/ext-wildcard-owner.js\\",\\"owners\\":[\\"@js-owner\\"],\\"lines\\":0}
 "
 `;
 
@@ -94,26 +85,22 @@ exports[`audit jsonl should show only unloved files when asked: stdout 1`] = `""
 
 exports[`audit jsonl should use a specific root when asked: stderr 1`] = `""`;
 
-exports[`audit jsonl should use a specific root when asked: stdout 1`] = `
-"{\\"path\\":\\"apps/some-file.js\\",\\"owners\\":[\\"@octocat\\"],\\"lines\\":0}
-{\\"path\\":\\"apps/some-file.ts\\",\\"owners\\":[\\"@octocat\\"],\\"lines\\":0}
-"
-`;
+exports[`audit jsonl should use a specific root when asked: stdout 1`] = `""`;
 
 exports[`audit simple should calculate stats when asked: stderr 1`] = `""`;
 
 exports[`audit simple should calculate stats when asked: stdout 1`] = `
 "
 --- Counts ---
-Total: 12 files (30 lines)
-Loved: 12 files (30 lines)
+Total: 10 files (35 lines)
+Loved: 10 files (35 lines)
 Unloved: 0 files (0 lines)
 --- Owners ---
-@doctocat: 2 files (0 lines)
-@global-owner1: 5 files (30 lines)
-@global-owner2: 5 files (30 lines)
-@js-owner: 1 files (0 lines)
-@octocat: 4 files (0 lines)
+@doctocat: 3 files (0 lines)
+@global-owner1: 4 files (35 lines)
+@global-owner2: 4 files (35 lines)
+@js-owner: 2 files (0 lines)
+@octocat: 1 files (0 lines)
 "
 `;
 
@@ -122,11 +109,11 @@ exports[`audit simple should do all commands in combination when asked: stderr 1
 exports[`audit simple should do all commands in combination when asked: stdout 1`] = `
 "
 --- Counts ---
-Total: 2 files (0 lines)
-Loved: 2 files (0 lines)
+Total: 0 files (0 lines)
+Loved: 0 files (0 lines)
 Unloved: 0 files (0 lines)
 --- Owners ---
-@octocat: 2 files (0 lines)
+
 "
 `;
 
@@ -135,16 +122,14 @@ exports[`audit simple should list ownership for all files: stderr 1`] = `""`;
 exports[`audit simple should list ownership for all files: stdout 1`] = `
 ".github/CODEOWNERS	@global-owner1	@global-owner2
 .gitignore	@global-owner1	@global-owner2
-README.md	@global-owner1	@global-owner2
-apps/some-file.js	@octocat
-apps/some-file.ts	@octocat
-build/logs/log.log	@doctocat
-deep/apps/some-file.js	@octocat
-deep/apps/some-file.ts	@octocat
-deep/build/logs/log.log	@global-owner1	@global-owner2
-deep/docs/SOMEDOC.md	@global-owner1	@global-owner2
-docs/SOMEDOC.md	@doctocat
-src/index.js	@js-owner
+build/logs/deep/recursive-root-dir-owner.log	@doctocat
+build/logs/recursive-root-dir-owner.log	@doctocat
+deep/apps/recursive-deep-dir-owner.ts	@octocat
+deep/nested-ignore/.gitignore	@global-owner1	@global-owner2
+deep/nested-ignore/overridden-ignore.js	@js-owner
+default-wildcard-owners.md	@global-owner1	@global-owner2
+docs/non-recursive-dir-owner.md	@doctocat
+src/ext-wildcard-owner.js	@js-owner
 "
 `;
 
@@ -154,8 +139,4 @@ exports[`audit simple should show only unloved files when asked: stdout 1`] = `"
 
 exports[`audit simple should use a specific root when asked: stderr 1`] = `""`;
 
-exports[`audit simple should use a specific root when asked: stdout 1`] = `
-"apps/some-file.js	@octocat
-apps/some-file.ts	@octocat
-"
-`;
+exports[`audit simple should use a specific root when asked: stdout 1`] = `""`;

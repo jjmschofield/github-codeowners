@@ -1,8 +1,5 @@
-import ignore from 'ignore';
-import * as fs from 'fs';
-import * as path from 'path';
-
-const readdir = require('recursive-readdir');
+import readdir from'recursive-readdir';
+import { createGitIgnoreFilter } from './gitignore';
 
 export const getFilteredFilePaths = async (dir: string, root: string): Promise<string[]> => {
   const filePaths = await readdir(dir, ['.git']);
@@ -13,30 +10,10 @@ export const getFilteredFilePaths = async (dir: string, root: string): Promise<s
 
   const filteredFilePaths = trimmedFilePaths
     .filter((file: string) => file.startsWith(root))
-    .filter(gitIgnoreFilter(dir));
+    .filter(await createGitIgnoreFilter(dir));
 
   filteredFilePaths.sort();
 
   return filteredFilePaths;
 };
 
-const gitIgnoreFilter = (dir: string) => {
-  const ignored = createIgnore(dir);
-  return ignored.createFilter();
-};
-
-const createIgnore = (dir: string) => {
-  const ignored = ignore();
-  const gitignore = path.resolve(dir, '.gitignore');
-
-  if (fs.existsSync(gitignore)) {
-    const lines = fs.readFileSync(gitignore).toString().split('\n');
-
-    for (const line of lines) {
-      if (!line || line.startsWith('#')) continue;
-      ignored.add(line);
-    }
-  }
-
-  return ignored;
-};
