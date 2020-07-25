@@ -1,6 +1,6 @@
-import ignore, { Ignore } from 'ignore';
-import * as fs from 'fs';
 import readdir from 'recursive-readdir';
+import * as fs from 'fs';
+import ignore, { Ignore } from 'ignore';
 
 interface RuleSet {
   name: string;
@@ -8,12 +8,17 @@ interface RuleSet {
 }
 
 export const createGitIgnoreFilter = async (dir: string) => {
-  const rulesSets = await getGitIgnoreRules(dir);
+  const ruleSets = await getGitIgnoreRules(dir);
 
   return (filePath: string) => {
-    for (const ruleSet of rulesSets) {
+    for (const ruleSet of ruleSets) {
       if (filePath.startsWith(ruleSet.name)) {
-        return !ruleSet.ignore.ignores(filePath);
+        // const trimmedFilePath = filePath.replace(ruleSet.name, '');
+
+        if (ruleSet.ignore.ignores(filePath)) {
+          return false;
+        }
+        return true;
       }
     }
     return true;
@@ -65,7 +70,7 @@ const getGitIgnoreRulesRecursively = async (dir: string): Promise<RuleSet[]> => 
     return {
       name: file.filePath.replace(dir, '')
         .replace('.gitignore', '')
-        .substr(1),
+        .replace(/^\/+/, ''), // remove leading slash
       ignore: ignore().add(file.contents),
     };
   });
