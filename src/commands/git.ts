@@ -16,7 +16,7 @@ interface GitOptions {
 }
 
 export const git = async (options: GitOptions) => {
-  const gitCommand = `git diff --name-only ${options.shaA ? options.shaA : '--cached'} ${options.shaB ? options.shaB : 'HEAD'}`;
+  const gitCommand = calcGitCommand(options);
 
   const diff = execSync(gitCommand).toString();
 
@@ -24,10 +24,10 @@ export const git = async (options: GitOptions) => {
 
   const engine = OwnershipEngine.FromCodeownersFile(options.codeowners);
 
-  const files : OwnedFile[] = [];
+  const files: OwnedFile[] = [];
 
-  for (const filePath of changedPaths){
-    files.push(await OwnedFile.FromPath(filePath, engine));
+  for (const filePath of changedPaths) {
+    files.push(await OwnedFile.FromPath(filePath, engine, { countLines: false }));
   }
 
   for (const file of files) {
@@ -38,4 +38,16 @@ export const git = async (options: GitOptions) => {
     const stats = calcFileStats(files);
     writeStats(stats, options, process.stdout);
   }
+};
+
+const calcGitCommand = (options: GitOptions) => {
+  if (options.shaA && options.shaB) {
+    return `git diff --name-only ${options.shaA} ${options.shaB}`;
+  }
+
+  if (options.shaA) {
+    return `git ls-tree --full-tree -r --name-only ${options.shaA}`;
+  }
+
+  return 'git diff --name-only --cached HEAD';
 };
