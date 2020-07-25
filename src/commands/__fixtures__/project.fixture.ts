@@ -13,18 +13,19 @@ export const generateProject = async (testId: string) => {
 
   // Create files
   const files = [
-    { path: 'README.md' },
-    { path: 'src/index.js' },
-    { path: 'build/logs/log.log' },
-    { path: 'apps/some-file.ts' },
-    { path: 'apps/some-file.js' },
-    { path: 'docs/SOMEDOC.md' },
-    { path: 'docs/SOMEDOC.md' },
-    { path: 'deep/docs/SOMEDOC.md' },
-    { path: 'deep/build/logs/log.log' },
-    { path: 'deep/apps/some-file.js' },
-    { path: 'deep/apps/some-file.ts' },
-    { path: 'node_modules/ignored.js' }
+    { path: 'default-wildcard-owners.md' },
+    { path: 'src/ext-wildcard-owner.js' },
+    { path: 'build/logs/recursive-root-dir-owner.log' },
+    { path: 'build/logs/deep/recursive-root-dir-owner.log' },
+    { path: 'docs/non-recursive-dir-owner.md' },
+    { path: 'deep/apps/recursive-deep-dir-owner.ts' },
+    { path: 'node_modules/parent-ignored.js' },
+    { path: 'explicit-ignore.js' },
+    { path: 'overridden-ignore.js' },
+    { path: 'deep/nested-ignore/explicit-ignore.js' },
+    { path: 'deep/nested-ignore/overridden-ignore.js' },
+    { path: 'deep/nested-ignore/ignored-by-nested-rule.txt' },
+    { path: 'deep/nested-ignore/node_modules/ignored-by-inherited-rule.txt' }
   ];
 
   for (const file of files) {
@@ -36,8 +37,22 @@ export const generateProject = async (testId: string) => {
   }
 
   // Create git ignore
-  const gitIgnore = `node_modules`;
+  const gitIgnore = `
+node_modules
+explicit-ignore.js
+overridden-ignore.js 
+override.txt
+`;
+
+
   await fs.promises.writeFile(path.join(workingDir, '.gitignore'), gitIgnore);
+
+  const nestedGitIgnore = `
+!overridden-ignore.js  
+ignored-by-nested-rule.txt
+`;
+
+  await fs.promises.writeFile(path.join(workingDir, 'deep', 'nested-ignore', '.gitignore'), nestedGitIgnore);
 
   // Create codeowners
   const codeowners = `

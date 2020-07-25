@@ -52,8 +52,6 @@ describe('audit', () => {
         expect(stdout).toMatchSnapshot('stdout');
         expect(stderr).toMatchSnapshot('stderr');
       });
-
-      // Missing commands -c, -d, -r
     });
   }
 });
