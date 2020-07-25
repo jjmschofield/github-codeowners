@@ -1,6 +1,5 @@
 import ignore, { Ignore } from 'ignore';
 import * as fs from 'fs';
-import * as path from 'path';
 import readdir from 'recursive-readdir';
 
 interface RuleSet {
