@@ -1,6 +1,5 @@
+import readdir from'recursive-readdir';
 import { createGitIgnoreFilter } from './gitignore';
-
-const readdir = require('recursive-readdir');
 
 export const getFilteredFilePaths = async (dir: string, root: string): Promise<string[]> => {
   const filePaths = await readdir(dir, ['.git']);

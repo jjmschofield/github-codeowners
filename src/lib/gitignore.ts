@@ -1,6 +1,7 @@
 import ignore, { Ignore } from 'ignore';
 import * as fs from 'fs';
 import * as path from 'path';
+import readdir from 'recursive-readdir';
 
 interface RuleSet {
   name: string;
@@ -13,10 +14,7 @@ export const createGitIgnoreFilter = async (dir: string) => {
   return (filePath: string) => {
     for (const ruleSet of rulesSets) {
       if (filePath.startsWith(ruleSet.name)) {
-        if (ruleSet.ignore.ignores(filePath)) {
-          return false;
-        }
-        return true;
+        return !ruleSet.ignore.ignores(filePath);
       }
     }
     return true;
@@ -74,35 +72,9 @@ const getGitIgnoreRulesRecursively = async (dir: string): Promise<RuleSet[]> => 
   });
 };
 
-const getFilePathsRecursively = async (startingDir: string, name: string) => {
-  const foundFiles: string[] = [];
-
-  const dirs: string[] = [];
-  dirs.push(startingDir);
-
-  while (dirs.length > 0) {
-    const dir = dirs.pop();
-
-    if (!dir) break;
-
-    const nodes = (await fs.promises.readdir(dir)).map(node => path.resolve(dir, node));
-
-    const nodeStatOps = nodes.map(fs.promises.stat);
-
-    const nodeStats = await Promise.all(nodeStatOps);
-
-    for (let i = 0; i < nodes.length; i++) {
-      if (nodeStats[i].isDirectory()) {
-        dirs.push(nodes[i]);
-      }
-
-      if (nodeStats[i].isFile() && nodes[i].endsWith(name)) {
-        foundFiles.push(nodes[i]);
-      }
-    }
-  }
-
-  return foundFiles;
+const getFilePathsRecursively = async (dir: string, name: string) => {
+  const filePaths = await readdir(dir);
+  return filePaths.filter(filePath => filePath.endsWith(name));
 };
 
 const getFiles = async (files: string[]): Promise<{ filePath: string, contents: string }[]> => {
