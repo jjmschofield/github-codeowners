@@ -18,7 +18,7 @@ export class OwnedFile {
     return `${JSON.stringify({ path: this.path, owners: this.owners, lines: this.lines })}\n`;
   }
 
-  toCsv(){
+  toCsv() {
     let line = this.path;
     if (this.owners.length > 0) {
       line += `,${this.owners.join(',')}`;
@@ -26,7 +26,7 @@ export class OwnedFile {
     return `${line}\n`;
   }
 
-  toTsv(){
+  toTsv() {
     let line = this.path;
     if (this.owners.length > 0) {
       line += `\t${this.owners.join('\t')}`;
@@ -35,10 +35,10 @@ export class OwnedFile {
   }
 
   // tslint:disable-next-line:variable-name
-  public static FromPath = async (filePath: string, engine: OwnershipEngine) => {
+  public static FromPath = async (filePath: string, engine: OwnershipEngine, opts = { countLines: true }) => {
     return new OwnedFile({
       path: filePath,
-      lines: await countLinesInFile(filePath),
+      lines: opts.countLines ? await countLinesInFile(filePath) : 0,
       owners: engine.calcFileOwnership(filePath),
     });
   }

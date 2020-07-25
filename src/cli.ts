@@ -60,7 +60,7 @@ commander.command('git [shaA] [shaB]')
   .option('-d, --dir <dirPath>', 'path to VCS directory', process.cwd())
   .option('-c, --codeowners <filePath>', 'path to codeowners file (default: "<dir>/.github/CODEOWNERS")')
   .option('-o, --output <outputFormat>', `how to output format eg: ${Object.values(OUTPUT_FORMAT).join(', ')}`, OUTPUT_FORMAT.SIMPLE)
-  .option('-s, --stats', 'output stats', false)
+  .option('-s, --stats', 'output stats, note: line counts are not available for this command', false)
   .action(async (shaA, shaB, options) => {
     try {
       if (!options.codeowners) {

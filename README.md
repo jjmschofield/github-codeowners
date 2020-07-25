@@ -115,18 +115,18 @@ Provides a list of files with their owners between commits (against the **curren
 
 The stats option here can be super useful to help you understand if other people will have a lot of work in reviewing your PR. 
 
-Owners  of unstaged changes:
+Ownership of all files staged for commit:
 ```shell script
 $ github-codeowners git
 ```
 
-Diff between a single commit and HEAD:
+Ownership of files at specific commit:
 ```shell script
 $ cd <your awesome project>
 $ github-codeowners git <commit sha>
 ```
 
-Diff between two commits:
+Ownership of files changed between two commits:
 ```shell script
 $ github-codeowners git <commit sha> <commit sha>
 ```
@@ -147,7 +147,7 @@ Options:
   -d, --dir <dirPath>          path to VCS directory (default: "/Users/jjmschofield/projects/github/snyk/registry")
   -c, --codeowners <filePath>  path to codeowners file (default: "<dir>/.github/CODEOWNERS")
   -o, --output <outputFormat>  how to output format eg: simple, jsonl, csv (default: "simple")
-  -s, --stats                  output stats (default: false)
+  -s, --stats                  output stats, note line counts are not available for this command (default: false)
   -h, --help                   output usage information
 ```
 

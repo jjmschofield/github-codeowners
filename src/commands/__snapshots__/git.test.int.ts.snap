@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`git csv should list ownership at the specific commit when a commit sha is provided: stderr 1`] = `""`;
+
+exports[`git csv should list ownership at the specific commit when a commit sha is provided: stdout 1`] = `
+".github/CODEOWNERS
+.gitignore
+.idea/codeStyles/codeStyleConfig.xml
+.idea/github-codeowners.iml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/jsLibraryMappings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+README.md
+package-lock.json
+package.json
+src/cli.ts,@jjmschofield
+src/commands/audit.ts,@jjmschofield
+src/commands/git.ts,@jjmschofield
+src/commands/who.ts,@jjmschofield
+src/lib/OwnedFile.ts,@jjmschofield
+src/lib/OwnershipEngine.ts,@jjmschofield
+src/lib/dir.ts,@jjmschofield
+src/lib/stats.ts,@jjmschofield
+src/lib/types.ts,@jjmschofield
+src/lib/writers.ts,@jjmschofield
+tsconfig.json
+tslint.json
+"
+`;
+
+exports[`git csv should list ownership of files changed between specific commits: stderr 1`] = `""`;
+
+exports[`git csv should list ownership of files changed between specific commits: stdout 1`] = `
+".circleci/config.yml
+.gitignore
+.idea/runConfigurations/test_int.xml
+README.md
+__mocks__/recursive-readdir.js
+jest.config.js
+package-lock.json
+package.json
+src/cli.ts,@jjmschofield
+src/commands/__fixtures__/default/files.json,@jjmschofield
+src/commands/__fixtures__/default/gitignore,@jjmschofield
+src/commands/__fixtures__/default/gitignore-deep,@jjmschofield
+src/commands/__fixtures__/default/index.ts,@jjmschofield
+src/commands/__fixtures__/default/owners,@jjmschofield
+src/commands/__fixtures__/project-builder.test.helper.ts,@jjmschofield
+src/commands/__fixtures__/types.ts,@jjmschofield
+src/commands/__snapshots__/audit.test.int.ts.snap,@jjmschofield
+src/commands/audit.test.int.ts,@jjmschofield
+src/lib/OwnedFile.ts,@jjmschofield
+src/lib/OwnershipEngine.test.ts,@jjmschofield
+src/lib/OwnershipEngine.ts,@jjmschofield
+src/lib/dir.ts,@jjmschofield
+src/lib/gitignore.test.ts,@jjmschofield
+src/lib/gitignore.ts,@jjmschofield
+src/lib/logger.ts,@jjmschofield
+src/lib/writers.ts,@jjmschofield
+tsconfig.json
+tslint.json
+"
+`;
+
+exports[`git jsonl should list ownership at the specific commit when a commit sha is provided: stderr 1`] = `""`;
+
+exports[`git jsonl should list ownership at the specific commit when a commit sha is provided: stdout 1`] = `
+"{\\"path\\":\\".github/CODEOWNERS\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\".gitignore\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\".idea/codeStyles/codeStyleConfig.xml\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\".idea/github-codeowners.iml\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\".idea/inspectionProfiles/Project_Default.xml\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\".idea/jsLibraryMappings.xml\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\".idea/misc.xml\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\".idea/modules.xml\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\".idea/vcs.xml\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\"README.md\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\"package-lock.json\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\"package.json\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\"src/cli.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/commands/audit.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/commands/git.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/commands/who.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/lib/OwnedFile.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/lib/OwnershipEngine.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/lib/dir.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/lib/stats.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/lib/types.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/lib/writers.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"tsconfig.json\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\"tslint.json\\",\\"owners\\":[],\\"lines\\":0}
+"
+`;
+
+exports[`git jsonl should list ownership of files changed between specific commits: stderr 1`] = `""`;
+
+exports[`git jsonl should list ownership of files changed between specific commits: stdout 1`] = `
+"{\\"path\\":\\".circleci/config.yml\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\".gitignore\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\".idea/runConfigurations/test_int.xml\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\"README.md\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\"__mocks__/recursive-readdir.js\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\"jest.config.js\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\"package-lock.json\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\"package.json\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\"src/cli.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/commands/__fixtures__/default/files.json\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/commands/__fixtures__/default/gitignore\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/commands/__fixtures__/default/gitignore-deep\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/commands/__fixtures__/default/index.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/commands/__fixtures__/default/owners\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/commands/__fixtures__/project-builder.test.helper.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/commands/__fixtures__/types.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/commands/__snapshots__/audit.test.int.ts.snap\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/commands/audit.test.int.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/lib/OwnedFile.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/lib/OwnershipEngine.test.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/lib/OwnershipEngine.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/lib/dir.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/lib/gitignore.test.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/lib/gitignore.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/lib/logger.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"src/lib/writers.ts\\",\\"owners\\":[\\"@jjmschofield\\"],\\"lines\\":0}
+{\\"path\\":\\"tsconfig.json\\",\\"owners\\":[],\\"lines\\":0}
+{\\"path\\":\\"tslint.json\\",\\"owners\\":[],\\"lines\\":0}
+"
+`;
+
+exports[`git simple should list ownership at the specific commit when a commit sha is provided: stderr 1`] = `""`;
+
+exports[`git simple should list ownership at the specific commit when a commit sha is provided: stdout 1`] = `
+".github/CODEOWNERS
+.gitignore
+.idea/codeStyles/codeStyleConfig.xml
+.idea/github-codeowners.iml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/jsLibraryMappings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+README.md
+package-lock.json
+package.json
+src/cli.ts	@jjmschofield
+src/commands/audit.ts	@jjmschofield
+src/commands/git.ts	@jjmschofield
+src/commands/who.ts	@jjmschofield
+src/lib/OwnedFile.ts	@jjmschofield
+src/lib/OwnershipEngine.ts	@jjmschofield
+src/lib/dir.ts	@jjmschofield
+src/lib/stats.ts	@jjmschofield
+src/lib/types.ts	@jjmschofield
+src/lib/writers.ts	@jjmschofield
+tsconfig.json
+tslint.json
+"
+`;
+
+exports[`git simple should list ownership of files changed between specific commits: stderr 1`] = `""`;
+
+exports[`git simple should list ownership of files changed between specific commits: stdout 1`] = `
+".circleci/config.yml
+.gitignore
+.idea/runConfigurations/test_int.xml
+README.md
+__mocks__/recursive-readdir.js
+jest.config.js
+package-lock.json
+package.json
+src/cli.ts	@jjmschofield
+src/commands/__fixtures__/default/files.json	@jjmschofield
+src/commands/__fixtures__/default/gitignore	@jjmschofield
+src/commands/__fixtures__/default/gitignore-deep	@jjmschofield
+src/commands/__fixtures__/default/index.ts	@jjmschofield
+src/commands/__fixtures__/default/owners	@jjmschofield
+src/commands/__fixtures__/project-builder.test.helper.ts	@jjmschofield
+src/commands/__fixtures__/types.ts	@jjmschofield
+src/commands/__snapshots__/audit.test.int.ts.snap	@jjmschofield
+src/commands/audit.test.int.ts	@jjmschofield
+src/lib/OwnedFile.ts	@jjmschofield
+src/lib/OwnershipEngine.test.ts	@jjmschofield
+src/lib/OwnershipEngine.ts	@jjmschofield
+src/lib/dir.ts	@jjmschofield
+src/lib/gitignore.test.ts	@jjmschofield
+src/lib/gitignore.ts	@jjmschofield
+src/lib/logger.ts	@jjmschofield
+src/lib/writers.ts	@jjmschofield
+tsconfig.json
+tslint.json
+"
+`;
