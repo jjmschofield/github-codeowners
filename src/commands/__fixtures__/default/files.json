@@ -1,0 +1,17 @@
+{
+  "files" : [
+    { "path": "default-wildcard-owners.md" },
+    { "path": "src/ext-wildcard-owner.js" },
+    { "path": "build/logs/recursive-root-dir-owner.log" },
+    { "path": "build/logs/deep/recursive-root-dir-owner.log" },
+    { "path": "docs/non-recursive-dir-owner.md" },
+    { "path": "deep/apps/recursive-deep-dir-owner.ts" },
+    { "path": "node_modules/parent-ignored.js" },
+    { "path": "explicit-ignore.js" },
+    { "path": "overridden-ignore.js" },
+    { "path": "deep/nested-ignore/explicit-ignore.js" },
+    { "path": "deep/nested-ignore/overridden-ignore.js" },
+    { "path": "deep/nested-ignore/ignored-by-nested-rule.txt" },
+    { "path": "deep/nested-ignore/node_modules/ignored-by-inherited-rule.txt" }
+  ]
+}

@@ -4,12 +4,12 @@ exports[`audit csv should calculate stats when asked: stderr 1`] = `""`;
 
 exports[`audit csv should calculate stats when asked: stdout 1`] = `
 "owner,files,lines
-total,10,38
-loved,10,38
+total,10,35
+loved,10,35
 unloved,0,0
 @doctocat,3,0
-@global-owner1,4,38
-@global-owner2,4,38
+@global-owner1,4,35
+@global-owner2,4,35
 @js-owner,2,0
 @octocat,1,0
 "
@@ -52,7 +52,7 @@ exports[`audit csv should use a specific root when asked: stdout 1`] = `""`;
 exports[`audit jsonl should calculate stats when asked: stderr 1`] = `""`;
 
 exports[`audit jsonl should calculate stats when asked: stdout 1`] = `
-"{\\"total\\":{\\"files\\":10,\\"lines\\":38},\\"unloved\\":{\\"files\\":0,\\"lines\\":0},\\"loved\\":{\\"files\\":10,\\"lines\\":38},\\"owners\\":[{\\"owner\\":\\"@global-owner1\\",\\"counters\\":{\\"files\\":4,\\"lines\\":38}},{\\"owner\\":\\"@global-owner2\\",\\"counters\\":{\\"files\\":4,\\"lines\\":38}},{\\"owner\\":\\"@doctocat\\",\\"counters\\":{\\"files\\":3,\\"lines\\":0}},{\\"owner\\":\\"@octocat\\",\\"counters\\":{\\"files\\":1,\\"lines\\":0}},{\\"owner\\":\\"@js-owner\\",\\"counters\\":{\\"files\\":2,\\"lines\\":0}}]}
+"{\\"total\\":{\\"files\\":10,\\"lines\\":35},\\"unloved\\":{\\"files\\":0,\\"lines\\":0},\\"loved\\":{\\"files\\":10,\\"lines\\":35},\\"owners\\":[{\\"owner\\":\\"@global-owner1\\",\\"counters\\":{\\"files\\":4,\\"lines\\":35}},{\\"owner\\":\\"@global-owner2\\",\\"counters\\":{\\"files\\":4,\\"lines\\":35}},{\\"owner\\":\\"@doctocat\\",\\"counters\\":{\\"files\\":3,\\"lines\\":0}},{\\"owner\\":\\"@octocat\\",\\"counters\\":{\\"files\\":1,\\"lines\\":0}},{\\"owner\\":\\"@js-owner\\",\\"counters\\":{\\"files\\":2,\\"lines\\":0}}]}
 "
 `;
 
@@ -66,12 +66,12 @@ exports[`audit jsonl should do all commands in combination when asked: stdout 1`
 exports[`audit jsonl should list ownership for all files: stderr 1`] = `""`;
 
 exports[`audit jsonl should list ownership for all files: stdout 1`] = `
-"{\\"path\\":\\".github/CODEOWNERS\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":30}
-{\\"path\\":\\".gitignore\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":5}
+"{\\"path\\":\\".github/CODEOWNERS\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":29}
+{\\"path\\":\\".gitignore\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":4}
 {\\"path\\":\\"build/logs/deep/recursive-root-dir-owner.log\\",\\"owners\\":[\\"@doctocat\\"],\\"lines\\":0}
 {\\"path\\":\\"build/logs/recursive-root-dir-owner.log\\",\\"owners\\":[\\"@doctocat\\"],\\"lines\\":0}
 {\\"path\\":\\"deep/apps/recursive-deep-dir-owner.ts\\",\\"owners\\":[\\"@octocat\\"],\\"lines\\":0}
-{\\"path\\":\\"deep/nested-ignore/.gitignore\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":3}
+{\\"path\\":\\"deep/nested-ignore/.gitignore\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":2}
 {\\"path\\":\\"deep/nested-ignore/overridden-ignore.js\\",\\"owners\\":[\\"@js-owner\\"],\\"lines\\":0}
 {\\"path\\":\\"default-wildcard-owners.md\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":0}
 {\\"path\\":\\"docs/non-recursive-dir-owner.md\\",\\"owners\\":[\\"@doctocat\\"],\\"lines\\":0}
@@ -92,13 +92,13 @@ exports[`audit simple should calculate stats when asked: stderr 1`] = `""`;
 exports[`audit simple should calculate stats when asked: stdout 1`] = `
 "
 --- Counts ---
-Total: 10 files (38 lines)
-Loved: 10 files (38 lines)
+Total: 10 files (35 lines)
+Loved: 10 files (35 lines)
 Unloved: 0 files (0 lines)
 --- Owners ---
 @doctocat: 3 files (0 lines)
-@global-owner1: 4 files (38 lines)
-@global-owner2: 4 files (38 lines)
+@global-owner1: 4 files (35 lines)
+@global-owner2: 4 files (35 lines)
 @js-owner: 2 files (0 lines)
 @octocat: 1 files (0 lines)
 "
