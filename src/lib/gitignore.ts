@@ -28,35 +28,45 @@ export const createGitIgnoreFilter = async (dir: string) => {
  */
 const getGitIgnoreRules = async (dir: string) => {
   const gitIgnores = await getGitIgnoreRulesRecursively(dir);
+  return buildGitIgnoreRules(gitIgnores);
+};
 
-  // Order by file length so when we combine rules we do it in the right order
-  // TODO -> this is a tree problem, it should be answered as such
-  // TODO -> tests must contain a test for the nested overide  (! in a nested git ignore)
-  const orderedIgnores = [...gitIgnores].sort((a, b) => {
+// TODO - there is probably a better way to approach this as tree problem if bugs are encountered
+const buildGitIgnoreRules = (ruleSets: RuleSet[]): RuleSet[] => {
+  // We order rule sets by length so that matching paths occur from outward nodes first eg
+  // src/deep/deeper
+  // src/deep
+  // src
+  const orderedRules = [...ruleSets].sort((a, b) => {
     if (a.name.length > b.name.length) return -1;
     if (a.name.length < b.name.length) return 1;
     return 0;
   });
 
-  for (const ig of orderedIgnores) {
-    for (const test of orderedIgnores) {
-      if (ig.name !== test.name && ig.name.startsWith(test.name)) {
-        ig.ignore = ignore().add(test.ignore).add(ig.ignore);
+  // Enumerate all rule sets to find rule sets in parent dirs
+  // When we find one add its rules before the currently applied rules in this ruleset
+  for (const ruleSet of orderedRules) {
+    for (const test of orderedRules) {
+      // If the ruleset is in a parent dir
+      if (ruleSet.name !== test.name && ruleSet.name.startsWith(test.name)) {
+        const newIgnore = ignore(); // Create a new rule set as rules in parent dirs should be applied first
+        newIgnore.add(test.ignore);
+        newIgnore.add(ruleSet.ignore);
+        ruleSet.ignore = newIgnore; // Override rule set with concatenated rules
       }
     }
   }
 
-  return orderedIgnores;
+  return orderedRules;
 };
 
 const getGitIgnoreRulesRecursively = async (dir: string): Promise<RuleSet[]> => {
-  const filePaths = await findFilesRecursively(dir, '.gitignore');
-
-  const files = await getManyFileContents(filePaths);
+  const filePaths = await getFilePathsRecursively(dir, '.gitignore');
+  const files = await getFiles(filePaths);
 
   return files.map((file) => {
     return {
-      name: file.name.replace(dir, '')
+      name: file.filePath.replace(dir, '')
         .replace('.gitignore', '')
         .substr(1),
       ignore: ignore().add(file.contents),
@@ -64,10 +74,10 @@ const getGitIgnoreRulesRecursively = async (dir: string): Promise<RuleSet[]> => 
   });
 };
 
-const findFilesRecursively = async (startingDir: string, name: string): Promise<string[]> => {
-  const dirs: string[] = [];
+const getFilePathsRecursively = async (startingDir: string, name: string) => {
   const foundFiles: string[] = [];
 
+  const dirs: string[] = [];
   dirs.push(startingDir);
 
   while (dirs.length > 0) {
@@ -75,7 +85,7 @@ const findFilesRecursively = async (startingDir: string, name: string): Promise<
 
     if (!dir) break;
 
-    const nodes = fs.readdirSync(dir).map(node => path.resolve(dir, node));
+    const nodes = (await fs.promises.readdir(dir)).map(node => path.resolve(dir, node));
 
     const nodeStatOps = nodes.map(fs.promises.stat);
 
@@ -95,14 +105,14 @@ const findFilesRecursively = async (startingDir: string, name: string): Promise<
   return foundFiles;
 };
 
-const getManyFileContents = async (files: string[]): Promise<{ name: string, contents: string }[]> => {
+const getFiles = async (files: string[]): Promise<{ filePath: string, contents: string }[]> => {
   const readOps = files.map(file => fs.promises.readFile(file));
 
   const contents = await Promise.all(readOps);
 
   return files.map((file, i) => {
     return {
-      name: file,
+      filePath: file,
       contents: contents[i].toString(),
     };
   });

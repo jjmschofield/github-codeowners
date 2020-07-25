@@ -8,7 +8,9 @@ const exec = util.promisify(require('child_process').exec);
 
 describe('audit', () => {
   const testId = uuidv4();
+
   let testDir = 'not set';
+
   beforeAll(async () => {
     testDir = await generateProject(testId, fixtures);
     // tslint:disable-next-line:no-console
