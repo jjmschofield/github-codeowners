@@ -15,10 +15,7 @@ export const readDirRecursively = async (dir: string, filters: string[] = []): P
 };
 
 const walkDir = (root: string, dir: string, ignores: Ignore, files: string[] = []): string[] => {
-  const sysPath = path.resolve(root, dir);
-
-  if (!fs.existsSync(sysPath)) return files;
-  const newFiles = fs.readdirSync(sysPath);
+  const newFiles = fs.readdirSync(path.resolve(root, dir));
 
   const newGitIgnore = newFiles.find(file => file === '.gitignore');
 
