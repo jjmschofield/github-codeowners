@@ -1,9 +1,9 @@
 import { OwnershipEngine } from '../lib/OwnershipEngine';
 import { OwnedFile } from '../lib/OwnedFile';
-import { getFilteredPaths } from '../lib/paths';
 import { OUTPUT_FORMAT } from '../lib/types';
 import { calcFileStats } from '../lib/stats';
 import { writeOwnedFile, writeStats } from '../lib/writers';
+import { readDirRecursively } from "../lib/dir";
 
 interface AuditOptions {
   codeowners: string;
@@ -37,7 +37,9 @@ export const audit = async (options: AuditOptions) => {
 const getFilesWithOwnership = async (options: AuditOptions): Promise<OwnedFile[]> => {
   const engine = OwnershipEngine.FromCodeownersFile(options.codeowners);
 
-  const filePaths = await getFilteredPaths(options.dir);
+  const filePaths = await readDirRecursively(options.dir, ['.git']);
+
+  filePaths.sort();
 
   const files: OwnedFile[] = [];
 
