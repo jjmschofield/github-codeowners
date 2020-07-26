@@ -36,6 +36,18 @@ describe('git', () => {
         expect(stdout).toMatchSnapshot('stdout');
         expect(stderr).toMatchSnapshot('stderr');
       });
+
+      it('should be reasonably performant', async () => {
+        const start = Date.now();
+
+        await runCli(`git 2d9bde975c5a5b1a20c57ce0918b0071dcd44e61 062f7fe9568b8f66ca97f67c6be9ead0eaba7b38 -o ${output}`);
+
+        const end = Date.now();
+
+        const execMs = end - start;
+
+        expect(execMs).toBeLessThan(200);
+      });
     });
   }
 });

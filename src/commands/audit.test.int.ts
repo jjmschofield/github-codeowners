@@ -54,6 +54,18 @@ describe('audit', () => {
         expect(stdout).toMatchSnapshot('stdout');
         expect(stderr).toMatchSnapshot('stderr');
       });
+
+      it('should be reasonably performant', async () => {
+        const start = Date.now();
+
+        await runCli(`audit -o ${output}`);
+
+        const end = Date.now();
+
+        const execMs = end - start;
+
+        expect(execMs).toBeLessThan(200);
+      });
     });
   }
 });

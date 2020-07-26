@@ -1,8 +1,7 @@
-import { createGitIgnoreFilter } from './gitignore';
 import { log } from './logger';
 import { readDirRecursively } from './dir';
 
-export const getFilteredFilePaths = async (dir: string, root: string): Promise<string[]> => {
+export const getFilteredPaths = async (dir: string): Promise<string[]> => {
   try {
     const filePaths = await readDirRecursively(dir, ['.git']);
 
@@ -10,13 +9,7 @@ export const getFilteredFilePaths = async (dir: string, root: string): Promise<s
       return filePath.replace(`${dir}/`, '');
     });
 
-    const filteredFilePaths = trimmedFilePaths
-      .filter((file: string) => file.startsWith(root))
-      .filter(await createGitIgnoreFilter(dir));
-
-    filteredFilePaths.sort();
-
-    return filteredFilePaths;
+    return trimmedFilePaths.sort();
   } catch (e) {
     log.error('failed getting file paths', e);
     throw e;
