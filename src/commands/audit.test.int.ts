@@ -44,13 +44,13 @@ describe('audit', () => {
       });
 
       it('should use a specific root when asked', async () => {
-        const { stdout, stderr } = await runCli(`audit -r apps -o ${output}`);
+        const { stdout, stderr } = await runCli(`audit -r deep -o ${output}`);
         expect(stdout).toMatchSnapshot('stdout');
         expect(stderr).toMatchSnapshot('stderr');
       });
 
       it('should do all commands in combination when asked', async () => {
-        const { stdout, stderr } = await runCli(`audit -us -r apps -o ${output}`);
+        const { stdout, stderr } = await runCli(`audit -us -r deep -o ${output}`);
         expect(stdout).toMatchSnapshot('stdout');
         expect(stderr).toMatchSnapshot('stderr');
       });

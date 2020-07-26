@@ -22,7 +22,7 @@ const walkDir = (root: string, dir: string, ignores: Ignore, files: string[] = [
   let appliedIgnores = ignores;
 
   if (newGitIgnore) {
-    const contents = fs.readFileSync(path.resolve(dir, newGitIgnore)).toString();
+    const contents = fs.readFileSync(path.resolve(root, dir, newGitIgnore)).toString();
     appliedIgnores = ignore().add(ignores).add(contents);
   }
 
