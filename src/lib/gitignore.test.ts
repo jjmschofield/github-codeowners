@@ -1,8 +1,8 @@
 import fs from 'fs';
-import readdir from 'recursive-readdir';
+import * as dir from './dir';
 import * as underTest from './gitignore';
 
-jest.mock('recursive-readdir');
+jest.mock('./dir');
 jest.mock('fs', () => {
   return {
     promises: {
@@ -11,7 +11,7 @@ jest.mock('fs', () => {
   };
 });
 
-const readdirMock = readdir as jest.Mock;
+const readdirMock = dir.readDirRecursively as jest.Mock;
 const fsReadFileMock = fs.promises.readFile as jest.Mock;
 
 describe('gitignore', () => {

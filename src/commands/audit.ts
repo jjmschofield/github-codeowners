@@ -1,6 +1,6 @@
 import { OwnershipEngine } from '../lib/OwnershipEngine';
 import { OwnedFile } from '../lib/OwnedFile';
-import { getFilteredFilePaths } from '../lib/dir';
+import { getFilteredFilePaths } from '../lib/paths';
 import { OUTPUT_FORMAT } from '../lib/types';
 import { calcFileStats } from '../lib/stats';
 import { writeOwnedFile, writeStats } from '../lib/writers';

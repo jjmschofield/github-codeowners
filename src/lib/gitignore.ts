@@ -1,6 +1,6 @@
-import readdir from 'recursive-readdir';
 import * as fs from 'fs';
 import ignore, { Ignore } from 'ignore';
+import { readDirRecursively } from './dir';
 
 interface RuleSet {
   name: string;
@@ -77,7 +77,7 @@ const getGitIgnoreRulesRecursively = async (dir: string): Promise<RuleSet[]> => 
 };
 
 const getFilePathsRecursively = async (dir: string, name: string) => {
-  const filePaths = await readdir(dir);
+  const filePaths = await readDirRecursively(dir, ['.git']);
   return filePaths.filter(filePath => filePath.endsWith(name));
 };
 
