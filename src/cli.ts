@@ -24,6 +24,10 @@ commander.command('audit')
         options.codeowners = path.resolve(options.dir, '.github/CODEOWNERS');
       }
 
+      if (options.root) {
+        options.dir = path.resolve(options.dir, options.root);
+      }
+
       await audit(options);
     } catch (error) {
       log.error('failed to run audit command', error);

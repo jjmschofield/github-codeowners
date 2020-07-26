@@ -2,12 +2,11 @@ import fs, { Stats } from 'fs';
 import ignore, { Ignore } from 'ignore';
 import path from 'path';
 
-
 export const readDirRecursively = async (dir: string, filters: string[] = []): Promise<string[]> => {
   return new Promise((resolve, reject) => {
     try {
       const ignores = ignore().add(filters);
-      const files = walkDir(dir, ignores);
+      const files = walkDir(dir, '', ignores);
       resolve(files);
     } catch (e) {
       reject(e);
@@ -15,32 +14,37 @@ export const readDirRecursively = async (dir: string, filters: string[] = []): P
   });
 };
 
-const walkDir = (dir: string, ignores: Ignore, files: string[] = []): string[] => {
-  if (!fs.existsSync(dir)) return files;
+const walkDir = (root: string, dir: string, ignores: Ignore, files: string[] = []): string[] => {
+  const newFiles = fs.readdirSync(path.resolve(root, dir));
 
-  const newFiles = fs.readdirSync(dir);
+  const newGitIgnore = newFiles.find(file => file === '.gitignore');
+
+  let appliedIgnores = ignores;
+
+  if (newGitIgnore) {
+    const contents = fs.readFileSync(path.resolve(root, dir, newGitIgnore)).toString();
+    appliedIgnores = ignore().add(ignores).add(contents);
+  }
 
   for (const file of newFiles) {
-    if (ignores.ignores(file)) {
+    if (appliedIgnores.ignores(file) || appliedIgnores.ignores(path.join(dir, file))) {
       continue;
     }
-
-    const fullPath = path.join(dir, file);
 
     let stats: Stats | undefined = undefined;
 
     try {
-      stats = fs.statSync(fullPath);
+      stats = fs.statSync(path.resolve(root, dir, file));
     } catch (e) {
       continue;// Ignore missing files and symlinks
     }
 
     if (stats && stats.isDirectory()) {
-      walkDir(fullPath, ignores, files);
+      walkDir(root, path.join(dir, file), appliedIgnores, files);
     }
 
     if (stats && stats.isFile()) {
-      files.push(fullPath);
+      files.push(path.join(dir, file));
     }
   }
 
