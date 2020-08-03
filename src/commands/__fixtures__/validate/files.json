@@ -1,0 +1,6 @@
+{
+  "files" : [
+    { "path": "valid.js" },
+    { "path": "duplicate-rule.js" }
+  ]
+}

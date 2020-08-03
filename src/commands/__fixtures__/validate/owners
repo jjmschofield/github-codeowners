@@ -1,0 +1,4 @@
+valid.js @some-owner
+duplicate-rule.js @some-owner
+file-does-not-exist.md @some-owner
+duplicate-rule.js @some-owner

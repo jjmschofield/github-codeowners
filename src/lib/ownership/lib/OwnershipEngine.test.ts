@@ -14,11 +14,13 @@ describe('OwnershipEngine', () => {
   describe('calcFileOwnership', () => {
     const createFileOwnershipMatcher = (path: string, owners: string[]): FileOwnershipMatcher => {
       return {
+        rule: `${path} ${owners.join(' ')}`,
         path,
         owners,
         match: (testPath: string) => {
           return testPath === path;
         },
+        matched: 0,
       };
     };
 
@@ -38,6 +40,23 @@ describe('OwnershipEngine', () => {
 
       // Assert
       expect(result).toEqual(expectedOwners);
+    });
+
+    it('should count the number of times a rule is matched to a path', () => {
+      // Arrange
+      const owners = ['@owner-1', '@owner-2'];
+      const path = 'my/awesome/file.ts';
+      const matcher = createFileOwnershipMatcher(path, owners);
+
+      expect(matcher.matched).toEqual(0);
+
+      const underTest = new OwnershipEngine([matcher]);
+
+      // Act
+      underTest.calcFileOwnership(path);
+
+      // Assert
+      expect(underTest.getRules()[0].matched).toEqual(1);
     });
 
     it('should should take precedence from the last matching rule', () => {
