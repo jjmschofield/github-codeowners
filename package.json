@@ -1,6 +1,6 @@
 {
   "name": "github-codeowners",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Handy tool for working with file ownership using Githubs CODEOWNERS file",
   "main": "dist/cli.js",
   "files": [
