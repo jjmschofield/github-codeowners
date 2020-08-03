@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`validate when all owners are valid output the result of all validation checks: stderr 1`] = `
+"Found duplicate rules [ 'duplicate-rule.js @some-owner' ]
+Found rules which did not match any files [ 'file-does-not-exist.md @some-owner' ]
+"
+`;
+
+exports[`validate when all owners are valid output the result of all validation checks: stdout 1`] = `""`;

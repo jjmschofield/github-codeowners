@@ -6,13 +6,12 @@
 A CLI tool for working with GitHub CODEOWNERS.
 
 Things it does:
-* Output who owns each file in your repo (ignoring files listed in `.gitignore`)
-* Output who owns a single file
-* Output ownership information at a specific git commit
-* Output ownership information of staged files
-* Outputs lots of lovely stats
-* Outputs handy formats for integrations (CSV and JSONL)
-* Validates that the provided owners are in the correct format for github
+* Calculate ownership stats
+* Find out who owns each and every file (ignoring files listed in `.gitignore`)
+* Find out who owns a single file
+* Find out who owns your staged files
+* Outputs in a bunch of script friendly handy formats for integrations (CSV and JSONL)
+* Validates that your CODEOWNERS file is valid
 
 ## Installation
 Install via npm globally then run
@@ -82,7 +81,7 @@ Usage: github-codeowners audit [options]
 list the owners for all files
 
 Options:
-  -d, --dir <dirPath>          path to VCS directory (default: "/Users/jjmschofield/projects/github/github-codeowners")
+  -d, --dir <dirPath>          path to VCS directory (default: "<current working directory>")
   -c, --codeowners <filePath>  path to codeowners file (default: "<dir>/.github/CODEOWNERS")
   -o, --output <outputFormat>  how to output format eg: simple, jsonl, csv (default: "simple")
   -u, --unloved                unowned files only (default: false)
@@ -149,6 +148,30 @@ Options:
   -c, --codeowners <filePath>  path to codeowners file (default: "<dir>/.github/CODEOWNERS")
   -o, --output <outputFormat>  how to output format eg: simple, jsonl, csv (default: "simple")
   -s, --stats                  output stats, note line counts are not available for this command (default: false)
+  -h, --help                   output usage information
+```
+
+### Validate
+Validates your CODEOWNERS file to find common mistakes, will throw on errors (such as malformed owners).
+```shell script
+$ cd <your awesome project> 
+$ github-codeowners validate
+Found duplicate rules [ 'some/duplicate/rule @octocat' ]
+Found rules which did not match any files [ 'some/non-existent/path @octocat' ]
+...
+```
+
+Full usage information:
+```shell script
+$ github-codeowners validate --help
+Usage: github-codeowners validate [options]
+
+Validates a CODOWNER file and files in dir
+
+Options:
+  -d, --dir <dirPath>          path to VCS directory (default: "<current working directory>")
+  -c, --codeowners <filePath>  path to codeowners file (default: "<dir>/.github/CODEOWNERS")
+  -r, --root <rootPath>        the root path to filter files by (default: "")
   -h, --help                   output usage information
 ```
 

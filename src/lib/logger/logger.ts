@@ -4,9 +4,9 @@ class Logger {
     console.error(msg, error);
   }
 
-  public warn(msg: string, error?: Error): void {
+  public warn(msg: string, obj?: Object): void {
     // tslint:disable-next-line:no-console
-    console.warn(msg, error);
+    console.warn(msg, obj);
   }
 }
 

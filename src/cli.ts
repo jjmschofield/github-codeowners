@@ -9,6 +9,7 @@ import { git } from './commands/git';
 import { log } from './lib/logger';
 
 import { OUTPUT_FORMAT } from './lib/writers/types';
+import { validate } from './commands/validate';
 
 commander.command('audit')
   .description('list the owners for all files')
@@ -34,6 +35,29 @@ commander.command('audit')
       process.exit(1);
     }
   });
+
+commander.command('validate')
+  .description('Validates a CODOWNER file and files in dir')
+  .option('-d, --dir <dirPath>', 'path to VCS directory', process.cwd())
+  .option('-c, --codeowners <filePath>', 'path to codeowners file (default: "<dir>/.github/CODEOWNERS")')
+  .option('-r, --root <rootPath>', 'the root path to filter files by', '')
+  .action(async (options) => {
+    try {
+      if (!options.codeowners) {
+        options.codeowners = path.resolve(options.dir, '.github/CODEOWNERS');
+      }
+
+      if (options.root) {
+        options.dir = path.resolve(options.dir, options.root);
+      }
+
+      await validate(options);
+    } catch (error) {
+      log.error('failed to run validate command', error);
+      process.exit(1);
+    }
+  });
+
 
 commander.command('who <file>')
   .description('lists owners of a specific file')

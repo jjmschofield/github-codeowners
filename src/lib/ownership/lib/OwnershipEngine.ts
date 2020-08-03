@@ -20,12 +20,24 @@ export class OwnershipEngine {
 
     for (const matcher of matchers) {
       if (matcher.match(filePath)) {
+        matcher.matched++;
         return matcher.owners;
       }
     }
 
     return [];
   }
+
+  public getRules(): { rule: string, matched: number }[] {
+    const status: { rule: string, matched: number }[] = [];
+
+    for (const matcher of this.matchers) {
+      status.push({ rule: matcher.rule, matched: matcher.matched });
+    }
+
+    return status;
+  }
+
 
   public static FromCodeownersFile(filePath: string) {
     try {
@@ -49,7 +61,7 @@ export class OwnershipEngine {
   }
 }
 
-const createMatcherCodeownersRule = (rule: string) => {
+const createMatcherCodeownersRule = (rule: string): FileOwnershipMatcher => {
   // Split apart on spaces
   const parts = rule.split(/\s+/);
 
@@ -61,8 +73,8 @@ const createMatcherCodeownersRule = (rule: string) => {
   // Remaining parts are expected to be team names (if any)
   if (parts.length > 1) {
     teamNames = parts.slice(1, parts.length);
-    for(const name of teamNames){
-      if(!codeOwnerRegex.test(name)){
+    for (const name of teamNames) {
+      if (!codeOwnerRegex.test(name)) {
         throw new Error(`${name} is not a valid owner name in rule ${rule}`);
       }
     }
@@ -73,9 +85,11 @@ const createMatcherCodeownersRule = (rule: string) => {
 
   // Return our complete matcher
   return {
+    rule,
     path,
     owners: teamNames,
     match: match.ignores.bind(match),
+    matched: 0,
   };
 };
 
