@@ -1,6 +1,6 @@
 import { OwnershipEngine } from './OwnershipEngine';
 import * as fs from 'fs';
-import { log } from './logger';
+import { log } from '../../logger';
 
 export class OwnedFile {
   // tslint:disable-next-line:variable-name
