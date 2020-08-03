@@ -12,6 +12,7 @@ Things it does:
 * Output ownership information of staged files
 * Outputs lots of lovely stats
 * Outputs handy formats for integrations (CSV and JSONL)
+* Validates that the provided owners are in the correct format for github
 
 ## Installation
 Install via npm globally then run
