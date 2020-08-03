@@ -1,10 +1,7 @@
 import { execSync } from 'child_process';
-
-import { OwnedFile } from '../lib/OwnedFile';
-import { OwnershipEngine } from '../lib/OwnershipEngine';
-import { OUTPUT_FORMAT, Stats } from '../lib/types';
+import { OwnedFile, OwnershipEngine } from '../lib/ownership';
+import { OUTPUT_FORMAT, writeOwnedFile, writeStats } from '../lib/writers';
 import { calcFileStats } from '../lib/stats';
-import { writeOwnedFile, writeStats } from '../lib/writers';
 
 interface GitOptions {
   dir: string;

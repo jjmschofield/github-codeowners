@@ -1,10 +1,6 @@
-import * as path from 'path';
-import { OwnershipEngine } from '../lib/OwnershipEngine';
-import { OwnedFile } from '../lib/OwnedFile';
-import { OUTPUT_FORMAT } from '../lib/types';
+import { OUTPUT_FORMAT, writeOwnedFile, writeStats } from '../lib/writers';
 import { calcFileStats } from '../lib/stats';
-import { writeOwnedFile, writeStats } from '../lib/writers';
-import { readDirRecursively } from '../lib/dir';
+import { getFileOwnership } from '../lib/ownership';
 
 interface AuditOptions {
   codeowners: string;
@@ -16,7 +12,7 @@ interface AuditOptions {
 }
 
 export const audit = async (options: AuditOptions) => {
-  const files = await getFilesWithOwnership(options);
+  const files = await getFileOwnership(options);
 
   if (options.stats) {
     const stats = calcFileStats(files);
@@ -33,24 +29,4 @@ export const audit = async (options: AuditOptions) => {
       writeOwnedFile(file, options, process.stdout);
     }
   }
-};
-
-const getFilesWithOwnership = async (options: AuditOptions): Promise<OwnedFile[]> => {
-  const engine = OwnershipEngine.FromCodeownersFile(options.codeowners);
-
-  let filePaths = await readDirRecursively(options.dir, ['.git']);
-
-  if(options.root){ // We need to re-add the root so that later ops can find the file
-    filePaths = filePaths.map(filePath => path.join(options.root, filePath));
-  }
-
-  filePaths.sort();
-
-  const files: OwnedFile[] = [];
-
-  for (const filePath of filePaths) {
-    files.push(await OwnedFile.FromPath(filePath, engine));
-  }
-
-  return files;
 };

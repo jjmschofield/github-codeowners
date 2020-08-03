@@ -1,7 +1,5 @@
-import { OwnershipEngine } from '../lib/OwnershipEngine';
-import { OwnedFile } from '../lib/OwnedFile';
-import { OUTPUT_FORMAT } from '../lib/types';
-import { writeOwnedFile } from '../lib/writers';
+import { OwnershipEngine, OwnedFile } from '../lib/ownership';
+import { writeOwnedFile, OUTPUT_FORMAT } from '../lib/writers';
 
 interface WhoOptions {
   file: string;
