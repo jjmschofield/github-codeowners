@@ -7,6 +7,7 @@ interface AuditOptions {
   dir: string;
   unloved: boolean;
   output: OUTPUT_FORMAT;
+  onlyGit: boolean;
   stats: boolean;
   root: string;
 }

@@ -17,6 +17,7 @@ commander.command('audit')
   .option('-c, --codeowners <filePath>', 'path to codeowners file (default: "<dir>/.github/CODEOWNERS")')
   .option('-o, --output <outputFormat>', `how to output format eg: ${Object.values(OUTPUT_FORMAT).join(', ')}`, OUTPUT_FORMAT.SIMPLE)
   .option('-u, --unloved', 'write unowned files only', false)
+  .option('-g, --only-git', 'consider only files tracked by git', false)
   .option('-s, --stats', 'write output stats', false)
   .option('-r, --root <rootPath>', 'the root path to filter files by', '')
   .action(async (options) => {
