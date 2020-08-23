@@ -20,7 +20,7 @@ describe('audit', () => {
   const gitTrackProject = async () => {
     await exec(`git init`, { cwd: testDir });
     await exec(`git add .`, { cwd: testDir });
-    await exec(`git diff-index --quiet HEAD || git commit -m "integration tests"`, { cwd: testDir });
+    await exec(`git commit -m "integration tests"`, { cwd: testDir });
   };
 
   const outputs = ['simple', 'jsonl', 'csv'];
@@ -55,7 +55,6 @@ describe('audit', () => {
         expect(stdout).toMatchSnapshot('stdout');
         expect(stderr).toMatchSnapshot('stderr');
       });
-
 
       it('should only consider files tracked in git root when asked', async () => {
         // Arrange
