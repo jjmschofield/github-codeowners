@@ -45,6 +45,22 @@ src/ext-wildcard-owner.js,@js-owner
 "
 `;
 
+exports[`audit csv should only consider files tracked in git root when asked: stderr 1`] = `""`;
+
+exports[`audit csv should only consider files tracked in git root when asked: stdout 1`] = `
+".github/CODEOWNERS,@global-owner1,@global-owner2
+.gitignore,@global-owner1,@global-owner2
+build/logs/deep/recursive-root-dir-owner.log,@doctocat
+build/logs/recursive-root-dir-owner.log,@doctocat
+deep/apps/recursive-deep-dir-owner.ts,@octocat
+deep/nested-ignore/.gitignore,@global-owner1,@global-owner2
+deep/nested-ignore/overridden-ignore.js,@js-owner
+default-wildcard-owners.md,@global-owner1,@global-owner2
+docs/non-recursive-dir-owner.md,@doctocat
+src/ext-wildcard-owner.js,@js-owner
+"
+`;
+
 exports[`audit csv should show only unloved files when asked: stderr 1`] = `""`;
 
 exports[`audit csv should show only unloved files when asked: stdout 1`] = `""`;
@@ -77,6 +93,22 @@ exports[`audit jsonl should do all commands in combination when asked: stdout 1`
 exports[`audit jsonl should list ownership for all files: stderr 1`] = `""`;
 
 exports[`audit jsonl should list ownership for all files: stdout 1`] = `
+"{\\"path\\":\\".github/CODEOWNERS\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":29}
+{\\"path\\":\\".gitignore\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":4}
+{\\"path\\":\\"build/logs/deep/recursive-root-dir-owner.log\\",\\"owners\\":[\\"@doctocat\\"],\\"lines\\":0}
+{\\"path\\":\\"build/logs/recursive-root-dir-owner.log\\",\\"owners\\":[\\"@doctocat\\"],\\"lines\\":0}
+{\\"path\\":\\"deep/apps/recursive-deep-dir-owner.ts\\",\\"owners\\":[\\"@octocat\\"],\\"lines\\":0}
+{\\"path\\":\\"deep/nested-ignore/.gitignore\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":2}
+{\\"path\\":\\"deep/nested-ignore/overridden-ignore.js\\",\\"owners\\":[\\"@js-owner\\"],\\"lines\\":0}
+{\\"path\\":\\"default-wildcard-owners.md\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":0}
+{\\"path\\":\\"docs/non-recursive-dir-owner.md\\",\\"owners\\":[\\"@doctocat\\"],\\"lines\\":0}
+{\\"path\\":\\"src/ext-wildcard-owner.js\\",\\"owners\\":[\\"@js-owner\\"],\\"lines\\":0}
+"
+`;
+
+exports[`audit jsonl should only consider files tracked in git root when asked: stderr 1`] = `""`;
+
+exports[`audit jsonl should only consider files tracked in git root when asked: stdout 1`] = `
 "{\\"path\\":\\".github/CODEOWNERS\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":29}
 {\\"path\\":\\".gitignore\\",\\"owners\\":[\\"@global-owner1\\",\\"@global-owner2\\"],\\"lines\\":4}
 {\\"path\\":\\"build/logs/deep/recursive-root-dir-owner.log\\",\\"owners\\":[\\"@doctocat\\"],\\"lines\\":0}
@@ -141,6 +173,22 @@ Unloved: 0 files (0 lines)
 exports[`audit simple should list ownership for all files: stderr 1`] = `""`;
 
 exports[`audit simple should list ownership for all files: stdout 1`] = `
+".github/CODEOWNERS	@global-owner1	@global-owner2
+.gitignore	@global-owner1	@global-owner2
+build/logs/deep/recursive-root-dir-owner.log	@doctocat
+build/logs/recursive-root-dir-owner.log	@doctocat
+deep/apps/recursive-deep-dir-owner.ts	@octocat
+deep/nested-ignore/.gitignore	@global-owner1	@global-owner2
+deep/nested-ignore/overridden-ignore.js	@js-owner
+default-wildcard-owners.md	@global-owner1	@global-owner2
+docs/non-recursive-dir-owner.md	@doctocat
+src/ext-wildcard-owner.js	@js-owner
+"
+`;
+
+exports[`audit simple should only consider files tracked in git root when asked: stderr 1`] = `""`;
+
+exports[`audit simple should only consider files tracked in git root when asked: stdout 1`] = `
 ".github/CODEOWNERS	@global-owner1	@global-owner2
 .gitignore	@global-owner1	@global-owner2
 build/logs/deep/recursive-root-dir-owner.log	@doctocat
