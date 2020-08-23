@@ -1,4 +1,4 @@
-import { execFile } from './execFile';
+import { execFile } from '../../util/execFile';
 import { readTrackedGitFiles } from './readTrackedGitFiles';
 
 jest.mock('./execFile');
