@@ -20,7 +20,9 @@ describe('audit', () => {
   const gitTrackProject = async () => {
     await exec(`git init`, { cwd: testDir });
     await exec(`git add .`, { cwd: testDir });
-    await exec(`git commit -m "integration tests" --author="github-codeowners <github-codeowners@example.com>"`, { cwd: testDir });
+    await exec(`git config user.email "github-codeowners@example.com"`, { cwd: testDir });
+    await exec(`git config user.name "github-codeowners"`, { cwd: testDir });
+    await exec(`git commit -m "integration tests"`, { cwd: testDir });
   };
 
   const outputs = ['simple', 'jsonl', 'csv'];
