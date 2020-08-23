@@ -2,11 +2,17 @@ import { OwnedFile } from './lib/OwnedFile';
 import { OwnershipEngine } from './lib/OwnershipEngine';
 import { readDirRecursively } from './lib/readDirRecursively';
 import * as path from 'path';
+import { gitLsFiles } from './lib/gitLsFiles';
 
-export const getFileOwnership = async (options: { codeowners: string, dir: string, root?: string }): Promise<OwnedFile[]> => {
+export const getFileOwnership = async (options: { codeowners: string, dir: string, onlyGit: boolean, root?: string }): Promise<OwnedFile[]> => {
   const engine = OwnershipEngine.FromCodeownersFile(options.codeowners);
 
-  let filePaths = await readDirRecursively(options.dir, ['.git']);
+  let filePaths;
+  if (options.onlyGit) {
+    filePaths = await gitLsFiles(options.dir);
+  } else {
+    filePaths = await readDirRecursively(options.dir, ['.git']);
+  }
 
   if (options.root) { // We need to re-add the root so that later ops can find the file
     filePaths = filePaths.map(filePath => path.join(<string>options.root, filePath));
