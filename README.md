@@ -85,6 +85,7 @@ Options:
   -c, --codeowners <filePath>  path to codeowners file (default: "<dir>/.github/CODEOWNERS")
   -o, --output <outputFormat>  how to output format eg: simple, jsonl, csv (default: "simple")
   -u, --unloved                unowned files only (default: false)
+  -g, --only-git               consider only files tracked by git (default: false)
   -s, --stats                  output stats (default: true)
   -i, --include <partialPath>  paths begening with partial path only (default: '')
   -h, --help                   output usage information
