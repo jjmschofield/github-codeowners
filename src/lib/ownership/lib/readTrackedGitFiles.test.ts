@@ -1,19 +1,25 @@
-import { execFile } from '../../util/execFile';
+import { exec } from '../../util/exec';
 import { readTrackedGitFiles } from './readTrackedGitFiles';
 
-jest.mock('./execFile');
-const execFileMock = execFile as jest.Mock;
+jest.mock('../../util/exec');
+const execFileMock = exec as jest.Mock;
 
-describe('git ls-files', () => {
-  it('splits the input', async () => {
+describe('readTrackedGitFiles', () => {
+  it('should return the expected list of files when called', async () => {
     execFileMock.mockResolvedValue({ stdout: 'foo\nbar\n', stderr: '' });
 
     const result = await readTrackedGitFiles('some/dir');
 
     expect(result).toStrictEqual(['foo', 'bar']);
-    expect(execFile).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.anything(),
+  });
+
+  it('should call git ls-files with the correct directory', async () => {
+    execFileMock.mockResolvedValue({ stdout: '', stderr: '' });
+
+    const result = await readTrackedGitFiles('some/dir');
+
+    expect(exec).toHaveBeenCalledWith(
+      'git ls-files',
       expect.objectContaining({
         cwd: 'some/dir',
       }),
