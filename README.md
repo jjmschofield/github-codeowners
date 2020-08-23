@@ -87,7 +87,7 @@ Options:
   -u, --unloved                unowned files only (default: false)
   -g, --only-git               consider only files tracked by git (default: false)
   -s, --stats                  output stats (default: true)
-  -i, --include <partialPath>  paths begening with partial path only (default: '')
+  -r, --root <rootPath>        the root path to filter files by (default: "")
   -h, --help                   output usage information
 ```
 
