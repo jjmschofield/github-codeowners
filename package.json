@@ -12,6 +12,7 @@
     "cli": "ts-node src/cli.ts",
     "cli:dist": "tsc && node dist/cli.js",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "security:deps": "npx snyk test",
     "test:unit": "jest",
     "test:unit:coverage": "npm run test:unit -- --coverage",
     "pretest:int": "rm -rf tests/scratch",
