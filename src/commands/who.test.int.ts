@@ -21,8 +21,14 @@ describe('who', () => {
     return exec(`node  ../../../dist/cli.js ${args}`, { cwd: testDir });
   };
 
-  it('should list ownership for all files', async () => {
+  it('should list ownership for one file', async () => {
     const { stdout, stderr } = await runCli('who default-wildcard-owners.md');
+    expect(stdout).toMatchSnapshot('stdout');
+    expect(stderr).toMatchSnapshot('stderr');
+  });
+
+  it('should list ownership for multiple files', async () => {
+    const { stdout, stderr } = await runCli('who explicit-ignore.js default-wildcard-owners.md');
     expect(stdout).toMatchSnapshot('stdout');
     expect(stderr).toMatchSnapshot('stderr');
   });
