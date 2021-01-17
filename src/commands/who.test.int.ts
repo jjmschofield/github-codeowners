@@ -38,4 +38,8 @@ describe('who', () => {
 
     expect(execMs).toBeLessThan(200);
   });
+
+  it('should error if the file is not present', async () => {
+    await expect(runCli('who does-not-exist.js')).rejects.toThrow('Command failed');
+  });
 });
