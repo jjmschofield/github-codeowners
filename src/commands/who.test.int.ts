@@ -39,7 +39,9 @@ describe('who', () => {
     expect(execMs).toBeLessThan(200);
   });
 
-  it('should error if the file is not present', async () => {
-    await expect(runCli('who does-not-exist.js')).rejects.toThrow('Command failed');
+  it('should not have read the file', async () => {
+    const { stdout, stderr } = await runCli('who does-not-exist.js');
+    expect(stdout).toMatchSnapshot('stdout');
+    expect(stderr).toMatchSnapshot('stderr');
   });
 });

@@ -1,6 +1,12 @@
 import { OwnershipEngine } from './OwnershipEngine';
 import * as fs from 'fs';
 import { log } from '../../logger';
+import { OUTPUT_FORMAT } from '../../writers';
+import { needsLineCounts } from '../../writers/types';
+
+export interface FromFileOptions {
+  countLines: boolean;
+}
 
 export class OwnedFile {
   // tslint:disable-next-line:variable-name
@@ -35,12 +41,19 @@ export class OwnedFile {
   }
 
   // tslint:disable-next-line:variable-name
-  public static FromPath = async (filePath: string, engine: OwnershipEngine, opts = { countLines: true }) => {
+  public static FromPath = async (filePath: string, engine: OwnershipEngine, opts: FromFileOptions) => {
     return new OwnedFile({
       path: filePath,
       lines: opts.countLines ? await countLinesInFile(filePath) : 0,
       owners: engine.calcFileOwnership(filePath),
     });
+  }
+
+  // tslint:disable-next-line:variable-name
+  public static RecommendedOptions = (opts: { output: OUTPUT_FORMAT }): FromFileOptions => {
+    return {
+      countLines: needsLineCounts(opts.output),
+    };
   }
 }
 

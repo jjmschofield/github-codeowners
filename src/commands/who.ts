@@ -10,6 +10,7 @@ interface WhoOptions {
 
 export const who = async (options: WhoOptions) => {
   const engine = OwnershipEngine.FromCodeownersFile(options.codeowners);
-  const file = await OwnedFile.FromPath(options.file, engine);
+  const fileOptions = OwnedFile.RecommendedOptions(options);
+  const file = await OwnedFile.FromPath(options.file, engine, fileOptions);
   writeOwnedFile(file, options, process.stdout);
 };

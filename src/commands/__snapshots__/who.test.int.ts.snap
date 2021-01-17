@@ -6,3 +6,10 @@ exports[`who should list ownership for all files: stdout 1`] = `
 "default-wildcard-owners.md	@global-owner1	@global-owner2
 "
 `;
+
+exports[`who should not have read the file: stderr 1`] = `""`;
+
+exports[`who should not have read the file: stdout 1`] = `
+"does-not-exist.js	@js-owner
+"
+`;

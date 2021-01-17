@@ -1,6 +1,6 @@
 import { OUTPUT_FORMAT, writeOwnedFile, writeStats } from '../lib/writers';
 import { calcFileStats } from '../lib/stats';
-import { getFileOwnership } from '../lib/ownership';
+import { getFileOwnership, OwnedFile } from '../lib/ownership';
 
 interface AuditOptions {
   codeowners: string;
@@ -13,7 +13,10 @@ interface AuditOptions {
 }
 
 export const audit = async (options: AuditOptions) => {
-  const files = await getFileOwnership(options);
+  const fileOptions = OwnedFile.RecommendedOptions(options);
+  fileOptions.countLines = fileOptions.countLines || options.stats;
+
+  const files = await getFileOwnership(options, fileOptions);
 
   if (options.stats) {
     const stats = calcFileStats(files);
