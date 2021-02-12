@@ -1,4 +1,4 @@
-import { getOwnership } from './file';
+import { getOwnership } from './ownership';
 import { OwnershipEngine } from './lib/OwnershipEngine';
 import { OwnedFile } from './lib/OwnedFile';
 import { countLines } from '../file/countLines';
@@ -6,7 +6,7 @@ import { countLines } from '../file/countLines';
 jest.mock('./lib/OwnershipEngine');
 jest.mock('../file/countLines');
 
-describe('file', () => {
+describe('ownership', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     const countLinesMock = countLines as jest.Mock;
