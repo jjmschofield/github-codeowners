@@ -1,5 +1,5 @@
 import fs from 'fs';
-import * as underTest from './readDirRecursively';
+import * as underTest from './readDir';
 import * as path from 'path';
 
 jest.mock('fs');
@@ -26,7 +26,7 @@ describe('readDirRecursively', () => {
     statSyncMock.mockReturnValue(statFake(STAT_FAKE_TYPES.FILE));
 
     // Act
-    const result = await underTest.readDirRecursively('root');
+    const result = await underTest.readDir('root');
 
     // Assert
     expect(readdirSyncMock).toHaveBeenCalledWith(path.resolve('root'));
@@ -49,7 +49,7 @@ describe('readDirRecursively', () => {
     statSyncMock.mockReturnValue(statFake(STAT_FAKE_TYPES.FILE));
 
     // Act
-    const result = await underTest.readDirRecursively('root');
+    const result = await underTest.readDir('root');
 
     // Assert
     expect(readdirSyncMock).toHaveBeenCalledWith(path.resolve('root'));
@@ -70,7 +70,7 @@ describe('readDirRecursively', () => {
     statSyncMock.mockReturnValue(statFake(STAT_FAKE_TYPES.FILE));
 
     // Act
-    const result = await underTest.readDirRecursively('root', ['*.js']);
+    const result = await underTest.readDir('root', ['*.js']);
 
     // Assert
     expect(result).toEqual(expectedFiles);
@@ -88,7 +88,7 @@ describe('readDirRecursively', () => {
     statSyncMock.mockReturnValue(statFake(STAT_FAKE_TYPES.FILE));
 
     // Act
-    const result = await underTest.readDirRecursively('root');
+    const result = await underTest.readDir('root');
 
     // Assert
     expect(result).toEqual(expectedFiles);
@@ -113,7 +113,7 @@ describe('readDirRecursively', () => {
 
 
     // Act
-    const result = await underTest.readDirRecursively('root');
+    const result = await underTest.readDir('root');
 
     // Assert
     expect(result).toEqual(expectedFiles);
@@ -138,7 +138,7 @@ describe('readDirRecursively', () => {
 
 
     // Act
-    const result = await underTest.readDirRecursively('root');
+    const result = await underTest.readDir('root');
 
     // Assert
     expect(result).toEqual(expectedFiles);
@@ -164,7 +164,7 @@ describe('readDirRecursively', () => {
 
 
     // Act
-    const result = await underTest.readDirRecursively('root');
+    const result = await underTest.readDir('root');
 
     // Assert
     expect(result).toEqual(expectedFiles);

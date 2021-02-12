@@ -1,12 +1,12 @@
-import * as path from 'path';
 import { OwnedFile } from './lib/OwnedFile';
 import { OwnershipEngine } from './lib/OwnershipEngine';
-import { readDirRecursively } from './lib/readDirRecursively';
-import { readTrackedGitFiles } from './lib/readTrackedGitFiles';
-import { countLinesInFile } from './lib/countLinesInFile';
+import { countLines } from '../file/countLines';
+import { getFilePaths, FILE_DISCOVERY_STRATEGY } from '../file';
 
 export const getFileOwnership = async (options: { codeowners: string, dir: string, onlyGit: boolean, root?: string }): Promise<OwnedFile[]> => {
-  const filePaths = await getFilePaths(options.dir, options.onlyGit, options.root);
+  const strategy = options.onlyGit ? FILE_DISCOVERY_STRATEGY.GIT_LS : FILE_DISCOVERY_STRATEGY.FILE_SYSTEM;
+
+  const filePaths = await getFilePaths(options.dir, strategy, options.root);
 
   const engine = OwnershipEngine.FromCodeownersFile(options.codeowners);
 
@@ -14,7 +14,7 @@ export const getFileOwnership = async (options: { codeowners: string, dir: strin
 
   for (const filePath of filePaths) {
     const owners = engine.calcFileOwnership(filePath);
-    const lines = await countLinesInFile(filePath);
+    const lines = await countLines(filePath);
 
     files.push(new OwnedFile({ path: filePath, owners, lines }));
   }
@@ -22,20 +22,4 @@ export const getFileOwnership = async (options: { codeowners: string, dir: strin
   return files;
 };
 
-const getFilePaths = async (dir: string, onlyGit: boolean, root?: string) => {
-  let filePaths;
 
-  if (onlyGit) {
-    filePaths = await readTrackedGitFiles(dir);
-  } else {
-    filePaths = await readDirRecursively(dir, ['.git']);
-  }
-
-  if (root) { // We need to re-add the root so that later ops can find the file
-    filePaths = filePaths.map(filePath => path.join(root, filePath));
-  }
-
-  filePaths.sort();
-
-  return filePaths;
-};

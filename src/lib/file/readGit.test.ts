@@ -1,14 +1,14 @@
-import { exec } from '../../util/exec';
-import { readTrackedGitFiles } from './readTrackedGitFiles';
+import { exec } from '../util/exec';
+import { readGit } from './readGit';
 
-jest.mock('../../util/exec');
+jest.mock('../util/exec');
 const execFileMock = exec as jest.Mock;
 
-describe('readTrackedGitFiles', () => {
+describe('readGit', () => {
   it('should return the expected list of files when called', async () => {
     execFileMock.mockResolvedValue({ stdout: 'foo\nbar\n', stderr: '' });
 
-    const result = await readTrackedGitFiles('some/dir');
+    const result = await readGit('some/dir');
 
     expect(result).toStrictEqual(['foo', 'bar']);
   });
@@ -16,7 +16,7 @@ describe('readTrackedGitFiles', () => {
   it('should call git ls-files with the correct directory', async () => {
     execFileMock.mockResolvedValue({ stdout: '', stderr: '' });
 
-    const result = await readTrackedGitFiles('some/dir');
+    const result = await readGit('some/dir');
 
     expect(exec).toHaveBeenCalledWith(
       'git ls-files',
