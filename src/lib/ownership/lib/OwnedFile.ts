@@ -33,6 +33,7 @@ export class OwnedFile {
     return `${line}\n`;
   }
 
+  // TODO - remove this, keep this class pure
   // tslint:disable-next-line:variable-name
   public static FromPath = async (filePath: string, engine: OwnershipEngine, opts = { countLines: true }) => {
     return new OwnedFile({
