@@ -1,5 +1,5 @@
 import { OwnershipEngine } from './lib/OwnershipEngine';
-import { readDirRecursively } from './lib/readDirRecursively';
+import { readDir } from '../file/readDir';
 
 interface ValidationResults {
   duplicated: Set<string>;
@@ -9,7 +9,7 @@ interface ValidationResults {
 export const validate = async (options: { codeowners: string, dir: string, root?: string }): Promise<ValidationResults> => {
   const engine = OwnershipEngine.FromCodeownersFile(options.codeowners); // Validates code owner file
 
-  const filePaths = await readDirRecursively(options.dir, ['.git']);
+  const filePaths = await readDir(options.dir, ['.git']);
 
   for (const file of filePaths) {
     engine.calcFileOwnership(file); // Test each file against rule set

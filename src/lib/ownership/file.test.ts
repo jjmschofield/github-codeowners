@@ -2,28 +2,28 @@ import { getFileOwnership } from './file';
 
 import { OwnershipEngine } from './lib/OwnershipEngine';
 
-import { readDirRecursively } from './lib/readDirRecursively';
-import { readTrackedGitFiles } from './lib/readTrackedGitFiles';
-import { countLinesInFile } from './lib/countLinesInFile';
+import { readDir } from '../file/readDir';
+import { readGit } from '../file/readGit';
+import { countLines } from '../file/countLines';
 import { OwnedFile } from './lib/OwnedFile';
 
 jest.mock('./lib/OwnershipEngine');
-jest.mock('./lib/readDirRecursively');
-jest.mock('./lib/readTrackedGitFiles');
-jest.mock('./lib/countLinesInFile');
+jest.mock('../file/readDir');
+jest.mock('../file/readGit');
+jest.mock('../file/countLines');
 
 describe('file', () => {
   const mocks = {
-    readDirRecursively: readDirRecursively as jest.Mock,
-    readTrackedGitFiles: readTrackedGitFiles as jest.Mock,
-    countLinesInFile: countLinesInFile as jest.Mock,
+    readDir: readDir as jest.Mock,
+    readGit: readGit as jest.Mock,
+    countLines: countLines as jest.Mock,
   };
 
   beforeEach(() => {
     jest.resetAllMocks();
-    mocks.readDirRecursively.mockResolvedValue([]);
-    mocks.readTrackedGitFiles.mockResolvedValue([]);
-    mocks.countLinesInFile.mockResolvedValue(0);
+    mocks.readDir.mockResolvedValue([]);
+    mocks.readGit.mockResolvedValue([]);
+    mocks.countLines.mockResolvedValue(0);
   });
 
   describe('getFileOwnership', () => {
@@ -46,10 +46,10 @@ describe('file', () => {
       await getFileOwnership({ codeowners: expected, dir: expected, onlyGit: false });
 
       // Assert
-      expect(mocks.readDirRecursively).toHaveBeenCalledWith(expected, ['.git']);
+      expect(mocks.readDir).toHaveBeenCalledWith(expected, ['.git']);
     });
 
-    it('should read files from git tracked files when onlyGit is specified', async () => {
+    it('should read files from git tracked filegs when onlyGit is specified', async () => {
       // Arrange
       const expected = 'some/dir';
 
@@ -57,7 +57,7 @@ describe('file', () => {
       await getFileOwnership({ codeowners: expected, dir: expected, onlyGit: true });
 
       // Assert
-      expect(mocks.readTrackedGitFiles).toHaveBeenCalledWith(expected);
+      expect(mocks.readGit).toHaveBeenCalledWith(expected);
     });
 
     it('should return owned files', async () => {
@@ -79,7 +79,7 @@ describe('file', () => {
         };
       });
 
-      mocks.readDirRecursively.mockResolvedValue(expected.map(f => f.path).reverse());
+      mocks.readDir.mockResolvedValue(expected.map(f => f.path).reverse());
 
       // Act
       const result = await getFileOwnership({ codeowners: 'some/file', dir: '/', onlyGit: false });

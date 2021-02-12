@@ -1,7 +1,7 @@
 import * as fs from 'fs';
-import { log } from '../../logger';
+import { log } from '../logger';
 
-export const countLinesInFile = async (filePath: string): Promise<number> => {
+export const countLines = async (filePath: string): Promise<number> => {
   let i;
   let count = 0;
   return new Promise((resolve, reject) => {

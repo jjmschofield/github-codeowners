@@ -2,7 +2,7 @@ import fs, { Stats } from 'fs';
 import ignore, { Ignore } from 'ignore';
 import path from 'path';
 
-export const readDirRecursively = async (dir: string, filters: string[] = []): Promise<string[]> => {
+export const readDir = async (dir: string, filters: string[] = []): Promise<string[]> => {
   return new Promise((resolve, reject) => {
     try {
       const ignores = ignore().add(filters);
