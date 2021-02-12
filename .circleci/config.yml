@@ -45,6 +45,33 @@ jobs:
           paths:
             - dist/
 
+  test_pre:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name:  Download cc-test-reporter
+          command: |
+            mkdir -p tmp/
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
+            chmod +x ./tmp/cc-test-reporter
+      - persist_to_workspace:
+          root: .
+          paths:
+            - tmp/cc-test-reporter
+
+  test_post:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Upload coverage results to Code Climate
+          command: |
+            tmp/cc-test-reporter sum-coverage tmp/coverage/codeclimate.*.json -p 1 -o tmp/coverage/codeclimate.total.json
+            CC_TEST_REPORTER_ID=$CODE_CLIMATE_REPORTER_ID tmp/cc-test-reporter upload-coverage -i tmp/coverage/codeclimate.total.json
+
   test_unit:
     <<: *defaults
     steps:
@@ -53,7 +80,14 @@ jobs:
           at: .
       - run:
           name: Unit Tests
-          command: npm run test:unit:coverage
+          command: |
+            npm run test:unit:coverage
+      - run:
+          name: Code Climate Coverage
+          command: |
+            ls
+            ls tmp/
+            tmp/cc-test-reporter format-coverage -t lcov -o tmp/coverage/codeclimate.unit.json tests/reports/unit/coverage/lcov.info
       - store_artifacts:
           path: tests/reports/unit/junit.xml
           prefix: tests
@@ -62,6 +96,10 @@ jobs:
           prefix: coverage
       - store_test_results:
           path: tests/reports/unit
+      - persist_to_workspace:
+          root: .
+          paths:
+            - tmp/coverage
 #      - run:
 #          name: Coveralls
 #          command: export COVERALLS_GIT_COMMIT=$CIRCLE_SHA1 && npm run coveralls < tests/reports/unit/coverage/lcov.info
@@ -102,15 +140,23 @@ workflows:
       - lint:
           requires:
             - dependencies
-      - test_unit:
-          requires:
-            - lint
       - build:
           requires:
             - lint
+      - test_pre
+      - test_unit:
+          requires:
+            - lint
+            - test_pre
+
       - test_int:
           requires:
             - build
+            - test_pre
+      - test_post:
+          requires:
+            - test_unit
+            - test_int
 
   release:
     jobs:
@@ -128,9 +174,16 @@ workflows:
               only: /^v.*/
             branches:
               ignore: /.*/
+      - test_pre:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
       - test_unit:
           requires:
             - lint
+            - test_pre
           filters:
             tags:
               only: /^v.*/
@@ -147,6 +200,16 @@ workflows:
       - test_int:
           requires:
             - build
+            - test_pre
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - test_post:
+          requires:
+            - test_unit
+            - test_int
           filters:
             tags:
               only: /^v.*/
@@ -156,6 +219,7 @@ workflows:
           requires:
             - test_unit
             - test_int
+            - build
           filters:
             tags:
               only: /^v.*/
