@@ -16,7 +16,7 @@ jobs:
           command: npm install
       - run:
           name: Snyk
-          command: npm security:deps
+          command: npm run security:deps
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
