@@ -5,7 +5,7 @@ describe('log', () => {
     // Arrange
     const expectedMsg = 'expected message';
     const expectedErr = new Error('expect error');
-    const spy = jest.spyOn(console, 'error');
+    const spy = jest.spyOn(console, 'error').mockReturnValue(undefined);
 
     // Act
     log.error(expectedMsg, expectedErr);
@@ -18,7 +18,7 @@ describe('log', () => {
     // Arrange
     const expectedMsg = 'expected message';
     const expectedErr = new Error('expect error');
-    const spy = jest.spyOn(console, 'warn');
+    const spy = jest.spyOn(console, 'warn').mockReturnValue(undefined);
 
     // Act
     log.warn(expectedMsg, expectedErr);

@@ -3,6 +3,8 @@ import * as fs from 'fs';
 import { OwnershipEngine } from './OwnershipEngine';
 import { FileOwnershipMatcher } from '../types';
 
+jest.mock('../../logger');
+
 jest.mock('fs');
 const readFileSyncMock = fs.readFileSync as jest.Mock;
 
