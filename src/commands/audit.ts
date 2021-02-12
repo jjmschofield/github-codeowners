@@ -1,6 +1,7 @@
 import { OUTPUT_FORMAT, writeOwnedFile, writeStats } from '../lib/writers';
 import { calcFileStats } from '../lib/stats';
-import { getFileOwnership } from '../lib/ownership';
+import { getOwnership } from '../lib/ownership';
+import { FILE_DISCOVERY_STRATEGY, getFilePaths } from "../lib/file";
 
 interface AuditOptions {
   codeowners: string;
@@ -13,7 +14,10 @@ interface AuditOptions {
 }
 
 export const audit = async (options: AuditOptions) => {
-  const files = await getFileOwnership(options);
+  const strategy = options.onlyGit ? FILE_DISCOVERY_STRATEGY.GIT_LS : FILE_DISCOVERY_STRATEGY.FILE_SYSTEM;
+  const filePaths = await getFilePaths(options.dir, strategy, options.root);
+
+  const files = await getOwnership(options.codeowners, filePaths);
 
   if (options.stats) {
     const stats = calcFileStats(files);
