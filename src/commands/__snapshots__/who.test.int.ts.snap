@@ -1,8 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`who should list ownership for all files: stderr 1`] = `""`;
+exports[`who should list ownership for multiple files: stderr 1`] = `""`;
 
-exports[`who should list ownership for all files: stdout 1`] = `
+exports[`who should list ownership for multiple files: stdout 1`] = `
+"explicit-ignore.js	@js-owner
+default-wildcard-owners.md	@global-owner1	@global-owner2
+"
+`;
+
+exports[`who should list ownership for one file: stderr 1`] = `""`;
+
+exports[`who should list ownership for one file: stdout 1`] = `
 "default-wildcard-owners.md	@global-owner1	@global-owner2
 "
 `;
