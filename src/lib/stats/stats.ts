@@ -1,4 +1,5 @@
-import { Counters, File, Stats } from './types';
+import { File } from '../file';
+import { Counters, Stats } from './types';
 
 export const calcFileStats = (files: File[]): Stats => {
   const total: Counters = {
