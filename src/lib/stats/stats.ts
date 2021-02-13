@@ -15,16 +15,16 @@ export const calcFileStats = (files: File[]): Stats => {
 
   for (const file of files) {
     total.files++;
-    total.lines += file.lines;
+    if(typeof file.lines === 'number') total.lines += file.lines;
 
     if (file.owners.length < 1) {
       unloved.files++;
-      unloved.lines += file.lines;
+      if(typeof file.lines === 'number') unloved.lines += file.lines;
     } else {
       for (const owner of file.owners) {
         const counts = ownerCount.get(owner) || { files: 0, lines: 0 };
         counts.files++;
-        counts.lines += file.lines;
+        if(typeof file.lines === 'number') counts.lines += file.lines;
         ownerCount.set(owner, counts);
       }
     }

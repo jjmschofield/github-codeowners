@@ -1,6 +1,6 @@
 export interface File {
   path: string;
-  lines: number;
+  lines?: number;
   owners: string[];
 }
 

@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { OwnedFile, OwnershipEngine } from '../lib/ownership';
+import { getOwnership, OwnedFile } from '../lib/ownership';
 import { OUTPUT_FORMAT, writeOwnedFile, writeStats } from '../lib/writers';
 import { calcFileStats } from '../lib/stats';
 
@@ -19,13 +19,7 @@ export const git = async (options: GitOptions) => {
 
   const changedPaths = diff.split('\n').filter(path => path.length > 0);
 
-  const engine = OwnershipEngine.FromCodeownersFile(options.codeowners);
-
-  const files: OwnedFile[] = [];
-
-  for (const filePath of changedPaths) {
-    files.push(await OwnedFile.FromPath(filePath, engine, { countLines: false }));
-  }
+  const files: OwnedFile[] = await getOwnership(options.codeowners, changedPaths);
 
   for (const file of files) {
     writeOwnedFile(file, options, process.stdout);

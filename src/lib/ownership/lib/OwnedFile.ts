@@ -1,16 +1,25 @@
-import { OwnershipEngine } from './OwnershipEngine';
 import { countLines } from '../../file/countLines';
 
 export class OwnedFile {
   // tslint:disable-next-line:variable-name
   readonly path: string;
   readonly owners: string[];
-  readonly lines: number;
+  // tslint:disable-next-line:variable-name
+  private _lines?: number;
 
-  constructor(props: { path: string, lines: number, owners: string[] }) {
+  constructor(props: { path: string, owners: string[], lines?: number | undefined }) {
     this.path = props.path;
-    this.lines = props.lines;
     this.owners = props.owners;
+    this._lines = props.lines;
+  }
+
+  public get lines(): number | undefined {
+    return this._lines;
+  }
+
+  async updateLineCount(): Promise<number> {
+    this._lines = await countLines(this.path);
+    return this._lines;
   }
 
   toJsonl() {
@@ -31,15 +40,5 @@ export class OwnedFile {
       line += `\t${this.owners.join('\t')}`;
     }
     return `${line}\n`;
-  }
-
-  // TODO - remove this, keep this class pure
-  // tslint:disable-next-line:variable-name
-  public static FromPath = async (filePath: string, engine: OwnershipEngine, opts = { countLines: true }) => {
-    return new OwnedFile({
-      path: filePath,
-      lines: opts.countLines ? await countLines(filePath) : 0,
-      owners: engine.calcFileOwnership(filePath),
-    });
   }
 }

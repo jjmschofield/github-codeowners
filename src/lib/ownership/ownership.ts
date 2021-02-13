@@ -9,11 +9,7 @@ export const getOwnership = async (codeowners: string, filePaths: string[]): Pro
 
   for (const filePath of filePaths) {
     const owners = engine.calcFileOwnership(filePath);
-
-    // TODO - make counting lines a concern for the caller or for stats
-    const lines = await countLines(filePath);
-
-    owned.push(new OwnedFile({ path: filePath, owners, lines }));
+    owned.push(new OwnedFile({ path: filePath, owners }));
   }
 
   return owned;

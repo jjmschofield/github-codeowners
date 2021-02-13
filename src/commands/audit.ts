@@ -1,7 +1,8 @@
+import pMap from 'p-map';
 import { OUTPUT_FORMAT, writeOwnedFile, writeStats } from '../lib/writers';
 import { calcFileStats } from '../lib/stats';
 import { getOwnership } from '../lib/ownership';
-import { FILE_DISCOVERY_STRATEGY, getFilePaths } from "../lib/file";
+import { FILE_DISCOVERY_STRATEGY, getFilePaths } from '../lib/file';
 
 interface AuditOptions {
   codeowners: string;
@@ -20,6 +21,8 @@ export const audit = async (options: AuditOptions) => {
   const files = await getOwnership(options.codeowners, filePaths);
 
   if (options.stats) {
+    await pMap(files, f => f.updateLineCount(), { concurrency: 100 });
+
     const stats = calcFileStats(files);
     writeStats(stats, options, process.stdout);
     return;
