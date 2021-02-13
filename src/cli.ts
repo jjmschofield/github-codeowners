@@ -60,18 +60,18 @@ commander.command('validate')
   });
 
 
-commander.command('who <file>')
-  .description('lists owners of a specific file')
+commander.command('who <files...>')
+  .description('lists owners of a specific file or files')
   .option('-d, --dir <dirPath>', 'path to VCS directory', process.cwd())
   .option('-c, --codeowners <filePath>', 'path to codeowners file (default: "<dir>/.github/CODEOWNERS")')
   .option('-o, --output <outputFormat>', `how to output format eg: ${Object.values(OUTPUT_FORMAT).join(', ')}`, OUTPUT_FORMAT.SIMPLE)
-  .action(async (file, options) => {
+  .action(async (files, options) => {
     try {
-      if (!file) {
+      if (files.length < 1) {
         throw new Error('a file must be defined');
       }
 
-      options.file = file;
+      options.files = files;
 
       if (!options.codeowners) {
         options.codeowners = path.resolve(options.dir, '.github/CODEOWNERS');
