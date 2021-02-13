@@ -1,5 +1,5 @@
 import { File } from '../file';
-import { OwnershipEngine } from './lib/OwnershipEngine';
+import { OwnershipEngine } from './OwnershipEngine';
 
 export const getOwnership = async (codeowners: string, filePaths: string[]): Promise<File[]> => {
   const engine = OwnershipEngine.FromCodeownersFile(codeowners);

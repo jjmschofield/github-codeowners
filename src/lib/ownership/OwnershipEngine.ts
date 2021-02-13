@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import ignore from 'ignore';
-import { FileOwnershipMatcher } from '../types';
-import { log } from '../../logger';
+import { FileOwnershipMatcher } from './types';
+import { log } from '../logger';
 
 export class OwnershipEngine {
   private readonly matchers: FileOwnershipMatcher[];

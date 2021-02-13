@@ -1,16 +1,12 @@
 import { getOwnership } from './ownership';
-import { OwnershipEngine } from './lib/OwnershipEngine';
+import { OwnershipEngine } from './OwnershipEngine';
 import { File } from '../file';
-import { countLines } from '../file/countLines';
 
-jest.mock('./lib/OwnershipEngine');
-jest.mock('../file/countLines');
+jest.mock('./OwnershipEngine');
 
 describe('ownership', () => {
   beforeEach(() => {
     jest.resetAllMocks();
-    const countLinesMock = countLines as jest.Mock;
-    countLinesMock.mockResolvedValue(0);
   });
 
   describe('getOwnership', () => {
