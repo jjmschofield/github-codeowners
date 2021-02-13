@@ -1,5 +1,5 @@
 import pMap from 'p-map';
-import { OUTPUT_FORMAT, writeOwnedFile, writeStats } from '../lib/writers';
+import { OUTPUT_FORMAT, writeStats } from '../lib/writers';
 import { calcFileStats } from '../lib/stats';
 import { getOwnership } from '../lib/ownership';
 import { FILE_DISCOVERY_STRATEGY, getFilePaths } from '../lib/file';
@@ -31,10 +31,10 @@ export const audit = async (options: AuditOptions) => {
   for (const file of files) {
     if (options.unloved) {
       if (file.owners.length < 1) {
-        writeOwnedFile(file, options, process.stdout);
+        file.write(options.output, process.stdout);
       }
     } else {
-      writeOwnedFile(file, options, process.stdout);
+      file.write(options.output, process.stdout);
     }
   }
 };

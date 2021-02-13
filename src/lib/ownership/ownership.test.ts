@@ -1,6 +1,6 @@
 import { getOwnership } from './ownership';
 import { OwnershipEngine } from './lib/OwnershipEngine';
-import { OwnedFile } from './lib/OwnedFile';
+import { File } from '../file';
 import { countLines } from '../file/countLines';
 
 jest.mock('./lib/OwnershipEngine');
@@ -28,8 +28,8 @@ describe('ownership', () => {
     it('should return owned files', async () => {
       // Arrange
       const expected = [
-        new OwnedFile({ path: 'is/not-owned', owners: ['@some/owner'], lines: 0 }),
-        new OwnedFile({ path: 'is/owned', owners: ['@some/other-owner'], lines: 0 }),
+        new File({ path: 'is/not-owned', owners: ['@some/owner'] }),
+        new File({ path: 'is/owned', owners: ['@some/other-owner'] }),
       ];
 
       const mockEngine = OwnershipEngine as any;

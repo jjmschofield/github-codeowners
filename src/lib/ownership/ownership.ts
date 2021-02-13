@@ -1,15 +1,14 @@
-import { OwnedFile } from './lib/OwnedFile';
+import { File } from '../file';
 import { OwnershipEngine } from './lib/OwnershipEngine';
-import { countLines } from '../file/countLines';
 
-export const getOwnership = async (codeowners: string, filePaths: string[]): Promise<OwnedFile[]> => {
+export const getOwnership = async (codeowners: string, filePaths: string[]): Promise<File[]> => {
   const engine = OwnershipEngine.FromCodeownersFile(codeowners);
 
-  const owned: OwnedFile[] = [];
+  const owned: File[] = [];
 
   for (const filePath of filePaths) {
     const owners = engine.calcFileOwnership(filePath);
-    owned.push(new OwnedFile({ path: filePath, owners }));
+    owned.push(new File({ path: filePath, owners }));
   }
 
   return owned;

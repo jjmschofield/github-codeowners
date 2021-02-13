@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
-import { getOwnership, OwnedFile } from '../lib/ownership';
-import { OUTPUT_FORMAT, writeOwnedFile, writeStats } from '../lib/writers';
+import { getOwnership } from '../lib/ownership';
+import { OUTPUT_FORMAT, writeStats } from '../lib/writers';
 import { calcFileStats } from '../lib/stats';
 
 interface GitOptions {
@@ -19,10 +19,10 @@ export const git = async (options: GitOptions) => {
 
   const changedPaths = diff.split('\n').filter(path => path.length > 0);
 
-  const files: OwnedFile[] = await getOwnership(options.codeowners, changedPaths);
+  const files = await getOwnership(options.codeowners, changedPaths);
 
   for (const file of files) {
-    writeOwnedFile(file, options, process.stdout);
+    file.write(options.output, process.stdout);
   }
 
   if (options.stats) {

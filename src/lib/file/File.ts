@@ -1,6 +1,7 @@
-import { countLines } from '../../file/countLines';
+import { countLines } from './countLines';
+import { OUTPUT_FORMAT } from "../writers";
 
-export class OwnedFile {
+export class File {
   // tslint:disable-next-line:variable-name
   readonly path: string;
   readonly owners: string[];
@@ -40,5 +41,19 @@ export class OwnedFile {
       line += `\t${this.owners.join('\t')}`;
     }
     return `${line}\n`;
+  }
+
+  write(output: OUTPUT_FORMAT, stream: any) {
+    switch (output) {
+      case(OUTPUT_FORMAT.JSONL):
+        stream.write(this.toJsonl());
+        break;
+      case(OUTPUT_FORMAT.CSV):
+        stream.write(this.toCsv());
+        break;
+      default:
+        stream.write(this.toTsv());
+        break;
+    }
   }
 }
