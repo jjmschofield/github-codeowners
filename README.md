@@ -1,7 +1,8 @@
 # github-codeowners
 [![CircleCI](https://circleci.com/gh/jjmschofield/github-codeowners/tree/master.svg?style=shield)](https://circleci.com/gh/jjmschofield/github-codeowners/tree/master)
 [![Known Vulnerabilities](https://snyk.io/test/github/jjmschofield/github-codeowners/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jjmschofield/github-codeowners?targetFile=package.json)
-[![Coverage Status](https://coveralls.io/repos/github/jjmschofield/github-codeowners/badge.svg?branch=master)](https://coveralls.io/github/jjmschofield/github-codeowners?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/005e2a8038aa060010dd/maintainability)](https://codeclimate.com/github/jjmschofield/github-codeowners/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/005e2a8038aa060010dd/test_coverage)](https://codeclimate.com/github/jjmschofield/github-codeowners/test_coverage)
 
 A CLI tool for working with GitHub CODEOWNERS.
 
