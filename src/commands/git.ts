@@ -1,8 +1,7 @@
 import { execSync } from 'child_process';
 import { getOwnership } from '../lib/ownership';
-import { writeStats } from '../lib/writers';
 import { OUTPUT_FORMAT } from '../lib/types';
-import { calcFileStats } from '../lib/stats';
+import { calcFileStats, statsWriter } from '../lib/stats';
 
 interface GitOptions {
   dir: string;
@@ -28,7 +27,7 @@ export const git = async (options: GitOptions) => {
 
   if (options.stats) {
     const stats = calcFileStats(files);
-    writeStats(stats, options, process.stdout);
+    statsWriter(stats, options, process.stdout);
   }
 };
 

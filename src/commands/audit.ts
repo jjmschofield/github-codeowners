@@ -1,7 +1,6 @@
 import pMap from 'p-map';
-import { writeStats } from '../lib/writers';
 import { OUTPUT_FORMAT } from '../lib/types';
-import { calcFileStats } from '../lib/stats';
+import { calcFileStats, statsWriter } from '../lib/stats';
 import { getOwnership } from '../lib/ownership';
 import { FILE_DISCOVERY_STRATEGY, getFilePaths } from '../lib/file';
 
@@ -25,7 +24,7 @@ export const audit = async (options: AuditOptions) => {
     await pMap(files, f => f.updateLineCount(), { concurrency: 100 });
 
     const stats = calcFileStats(files);
-    writeStats(stats, options, process.stdout);
+    statsWriter(stats, options, process.stdout);
     return;
   }
 
