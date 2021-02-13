@@ -1,4 +1,3 @@
-// import { writeOwnedFile, writeStats } from '../lib/writers';
 import { validate as assertValidRules } from '../lib/ownership';
 import { log } from '../lib/logger';
 

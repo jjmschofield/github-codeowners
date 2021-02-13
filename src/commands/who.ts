@@ -1,5 +1,5 @@
-import { OwnershipEngine, OwnedFile } from '../lib/ownership';
-import { writeOwnedFile, OUTPUT_FORMAT } from '../lib/writers';
+import { getOwnership } from '../lib/ownership';
+import { OUTPUT_FORMAT } from '../lib/types';
 
 interface WhoOptions {
   file: string;
@@ -9,7 +9,6 @@ interface WhoOptions {
 }
 
 export const who = async (options: WhoOptions) => {
-  const engine = OwnershipEngine.FromCodeownersFile(options.codeowners);
-  const file = await OwnedFile.FromPath(options.file, engine);
-  writeOwnedFile(file, options, process.stdout);
+  const [file] = await getOwnership(options.codeowners, [options.file]);
+  file.write(options.output, process.stdout);
 };

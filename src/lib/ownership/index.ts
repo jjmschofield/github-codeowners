@@ -1,5 +1,4 @@
-export { OwnedFile } from './lib/OwnedFile';
-export { OwnershipEngine } from './lib/OwnershipEngine';
-export { getFileOwnership } from './file';
+export { OwnershipEngine } from './OwnershipEngine';
+export { getOwnership } from './ownership';
 export { validate } from './validate';
 export { Matcher, FileOwnershipMatcher } from './types';

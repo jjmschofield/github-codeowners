@@ -1,6 +1,8 @@
-import { OUTPUT_FORMAT, writeOwnedFile, writeStats } from '../lib/writers';
-import { calcFileStats } from '../lib/stats';
-import { getFileOwnership } from '../lib/ownership';
+import pMap from 'p-map';
+import { OUTPUT_FORMAT } from '../lib/types';
+import { calcFileStats, statsWriter } from '../lib/stats';
+import { getOwnership } from '../lib/ownership';
+import { FILE_DISCOVERY_STRATEGY, getFilePaths } from '../lib/file';
 
 interface AuditOptions {
   codeowners: string;
@@ -13,21 +15,26 @@ interface AuditOptions {
 }
 
 export const audit = async (options: AuditOptions) => {
-  const files = await getFileOwnership(options);
+  const strategy = options.onlyGit ? FILE_DISCOVERY_STRATEGY.GIT_LS : FILE_DISCOVERY_STRATEGY.FILE_SYSTEM;
+  const filePaths = await getFilePaths(options.dir, strategy, options.root);
+
+  const files = await getOwnership(options.codeowners, filePaths);
 
   if (options.stats) {
+    await pMap(files, f => f.updateLineCount(), { concurrency: 100 });
+
     const stats = calcFileStats(files);
-    writeStats(stats, options, process.stdout);
+    statsWriter(stats, options, process.stdout);
     return;
   }
 
   for (const file of files) {
     if (options.unloved) {
       if (file.owners.length < 1) {
-        writeOwnedFile(file, options, process.stdout);
+        file.write(options.output, process.stdout);
       }
     } else {
-      writeOwnedFile(file, options, process.stdout);
+      file.write(options.output, process.stdout);
     }
   }
 };

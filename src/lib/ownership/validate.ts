@@ -1,4 +1,4 @@
-import { OwnershipEngine } from './lib/OwnershipEngine';
+import { OwnershipEngine } from './OwnershipEngine';
 import { readDir } from '../file/readDir';
 
 interface ValidationResults {

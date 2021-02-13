@@ -1,7 +1,7 @@
-import { Stats } from '../stats';
-import { OUTPUT_FORMAT } from './types';
+import { Stats } from './index';
+import { OUTPUT_FORMAT } from '../types';
 
-export const writeStats = (stats: Stats, options: { output: OUTPUT_FORMAT }, stream: any) => {
+export const writer = (stats: Stats, options: { output: OUTPUT_FORMAT }, stream: any) => {
   const orderedOwners = [...stats.owners].sort((a, b) => {
     if (a.owner < b.owner) return -1;
     if (a.owner > b.owner) return 1;

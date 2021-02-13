@@ -1,9 +1,3 @@
-export interface File {
-  path: string;
-  lines: number;
-  owners: string[];
-}
-
 export interface Counters {
   files: number;
   lines: number;

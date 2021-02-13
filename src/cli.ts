@@ -8,7 +8,7 @@ import { who } from './commands/who';
 import { git } from './commands/git';
 import { log } from './lib/logger';
 
-import { OUTPUT_FORMAT } from './lib/writers/types';
+import { OUTPUT_FORMAT } from './lib/types';
 import { validate } from './commands/validate';
 
 commander.command('audit')
