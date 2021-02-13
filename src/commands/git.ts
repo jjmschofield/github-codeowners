@@ -1,6 +1,7 @@
 import { execSync } from 'child_process';
 import { getOwnership } from '../lib/ownership';
-import { OUTPUT_FORMAT, writeStats } from '../lib/writers';
+import { writeStats } from '../lib/writers';
+import { OUTPUT_FORMAT } from '../lib/types';
 import { calcFileStats } from '../lib/stats';
 
 interface GitOptions {

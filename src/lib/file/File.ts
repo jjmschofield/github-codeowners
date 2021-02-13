@@ -1,5 +1,5 @@
 import { countLines } from './countLines';
-import { OUTPUT_FORMAT } from "../writers";
+import { OUTPUT_FORMAT } from '../types';
 
 export class File {
   // tslint:disable-next-line:variable-name

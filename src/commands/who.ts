@@ -1,5 +1,5 @@
 import { getOwnership } from '../lib/ownership';
-import { OUTPUT_FORMAT } from '../lib/writers';
+import { OUTPUT_FORMAT } from '../lib/types';
 
 interface WhoOptions {
   file: string;

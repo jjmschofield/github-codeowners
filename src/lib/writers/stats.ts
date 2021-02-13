@@ -1,5 +1,5 @@
 import { Stats } from '../stats';
-import { OUTPUT_FORMAT } from './types';
+import { OUTPUT_FORMAT } from '../types';
 
 export const writeStats = (stats: Stats, options: { output: OUTPUT_FORMAT }, stream: any) => {
   const orderedOwners = [...stats.owners].sort((a, b) => {

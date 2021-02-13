@@ -1,5 +1,6 @@
 import pMap from 'p-map';
-import { OUTPUT_FORMAT, writeStats } from '../lib/writers';
+import { writeStats } from '../lib/writers';
+import { OUTPUT_FORMAT } from '../lib/types';
 import { calcFileStats } from '../lib/stats';
 import { getOwnership } from '../lib/ownership';
 import { FILE_DISCOVERY_STRATEGY, getFilePaths } from '../lib/file';
