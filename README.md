@@ -92,19 +92,20 @@ Options:
 ```
 
 ### Who
-Tells you who owns a given file: 
+Tells you who owns a given file or files: 
 ```shell script
 $ cd <your awesome project> 
-$ github-codeowners who <file>
+$ github-codeowners who <file> <file>
+<file> @some/team
 <file> @some/team
 ```
 
 Full usage:
 ```shell script
 $ github-codeowners who --help                   
-Usage: github-codeowners who [options] <file>
+Usage: github-codeowners who [options] <file...>
 
-lists owners of a specific file
+lists owners of a specific file or files
 
 Options:
   -d, --dir <dirPath>          path to VCS directory (default: "/Users/jjmschofield/projects/github/snyk/registry")
