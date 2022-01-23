@@ -109,14 +109,6 @@
        }
     },
     {
-       "name": "single segment pattern with escaped single-character wildcard",
-       "pattern": "f\\?o",
-       "paths": {
-          "foo": false,
-          "f?o": true
-       }
-    },
-    {
        "name": "leading double-asterisk wildcard",
        "pattern": "**/foo/bar",
        "paths": {
