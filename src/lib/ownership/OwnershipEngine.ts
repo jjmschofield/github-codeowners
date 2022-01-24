@@ -83,6 +83,15 @@ const createMatcherCodeownersRule = (rule: string): FileOwnershipMatcher => {
   // Create an `ignore` matcher to ape github behaviour
   const match: any = ignore().add(path);
 
+  // Workaround for rules ending with /*
+  // GitHub will not look for nested files, so we adjust the node-ignore regex
+  match._rules = match._rules.map((r: any) => {
+    if (r.pattern.endsWith('/*')) {
+      r.regex = new RegExp(r.regex.source.replace('(?=$|\\/$)', '(?=$|[^\\/]$)'), 'i');
+    }
+    return r;
+  });
+
   // Return our complete matcher
   return {
     rule,

@@ -3,6 +3,8 @@ import * as fs from 'fs';
 import { OwnershipEngine } from './OwnershipEngine';
 import { FileOwnershipMatcher } from './types';
 
+const patterns: any = require('../../test/fixtures/patterns.json');
+
 jest.mock('../logger');
 
 jest.mock('fs');
@@ -155,6 +157,24 @@ describe('OwnershipEngine', () => {
       // Assert
       expect(() => OwnershipEngine.FromCodeownersFile('some/codeowners/file'))
         .toThrowError(expectedError);
+    });
+  });
+
+  describe.each<any>(patterns)('$name: "$pattern"', ({ name, pattern, paths }) => {
+    const tests = Object.entries(paths);
+      // console.log(tests)
+    test.each(tests)(`should file "%s" match? %s`, (path, expected) => {
+      // Arrange
+      const owner = '@user1';
+      const codeowners = `${pattern} ${owner}`;
+
+      readFileSyncMock.mockReturnValue(Buffer.from(codeowners));
+      // console.log(path, expected)
+      // Act
+      const result = OwnershipEngine.FromCodeownersFile('some/codeowners/file').calcFileOwnership(path);
+
+      // Assert
+      expect(result.length === 1).toEqual(expected);
     });
   });
 });
