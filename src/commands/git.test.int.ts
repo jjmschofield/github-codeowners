@@ -4,6 +4,8 @@ import { generateProject } from './__fixtures__/project-builder.test.helper';
 
 import util from 'util';
 
+const { version } = require('../../package.json');
+
 const exec = util.promisify(require('child_process').exec);
 
 describe('git', () => {
@@ -38,4 +40,11 @@ describe('git', () => {
       });
     });
   }
+
+  describe('cli', () => {
+    it('should print package version', async () => {
+      const { stdout, stderr } = await runCli('--version');
+      expect(stdout).toEqual(`${version}\n`);
+    });
+  });
 });

@@ -11,6 +11,10 @@ import { log } from './lib/logger';
 import { OUTPUT_FORMAT } from './lib/types';
 import { validate } from './commands/validate';
 
+const { version } = require('../package.json');
+
+commander.version(version);
+
 commander.command('audit')
   .description('list the owners for all files')
   .option('-d, --dir <dirPath>', 'path to VCS directory', process.cwd())
