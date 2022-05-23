@@ -12,13 +12,14 @@ interface AuditOptions {
   onlyGit: boolean;
   stats: boolean;
   root: string;
+  allowRelativePaths: boolean;
 }
 
 export const audit = async (options: AuditOptions) => {
   const strategy = options.onlyGit ? FILE_DISCOVERY_STRATEGY.GIT_LS : FILE_DISCOVERY_STRATEGY.FILE_SYSTEM;
   const filePaths = await getFilePaths(options.dir, strategy, options.root);
 
-  const files = await getOwnership(options.codeowners, filePaths);
+  const files = await getOwnership(options.codeowners, filePaths, options.allowRelativePaths);
 
   if (options.stats) {
     await pMap(files, f => f.updateLineCount(), { concurrency: 100 });

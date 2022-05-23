@@ -24,6 +24,7 @@ commander.command('audit')
   .option('-g, --only-git', 'consider only files tracked by git', false)
   .option('-s, --stats', 'write output stats', false)
   .option('-r, --root <rootPath>', 'the root path to filter files by', '')
+  .option('-a, --allow-relative-paths', 'allow relative paths', false)
   .action(async (options) => {
     try {
       if (!options.codeowners) {
@@ -69,6 +70,7 @@ commander.command('who <files...>')
   .option('-d, --dir <dirPath>', 'path to VCS directory', process.cwd())
   .option('-c, --codeowners <filePath>', 'path to codeowners file (default: "<dir>/.github/CODEOWNERS")')
   .option('-o, --output <outputFormat>', `how to output format eg: ${Object.values(OUTPUT_FORMAT).join(', ')}`, OUTPUT_FORMAT.SIMPLE)
+  .option('-a, --allow-relative-paths', 'allow relative paths', false)
   .action(async (files, options) => {
     try {
       if (files.length < 1) {

@@ -15,7 +15,7 @@ describe('ownership', () => {
       const expected = 'some/file';
 
       // Act
-      await getOwnership(expected, []);
+      await getOwnership(expected, [], false);
 
       // Assert
       expect(OwnershipEngine.FromCodeownersFile).toHaveBeenLastCalledWith(expected);
@@ -42,7 +42,7 @@ describe('ownership', () => {
 
       // Act
       const paths = expected.map(f => f.path);
-      const result = await getOwnership('some/file', paths);
+      const result = await getOwnership('some/file', paths, false);
 
       // Assert
       expect(result).toEqual(expected);

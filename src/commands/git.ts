@@ -10,6 +10,7 @@ interface GitOptions {
   shaB?: string;
   output: OUTPUT_FORMAT;
   stats: boolean;
+  allowRelativePaths: boolean;
 }
 
 export const git = async (options: GitOptions) => {
@@ -19,7 +20,7 @@ export const git = async (options: GitOptions) => {
 
   const changedPaths = diff.split('\n').filter(path => path.length > 0);
 
-  const files = await getOwnership(options.codeowners, changedPaths);
+  const files = await getOwnership(options.codeowners, changedPaths, options.allowRelativePaths);
 
   for (const file of files) {
     file.write(options.output, process.stdout);

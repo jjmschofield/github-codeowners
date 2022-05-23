@@ -6,8 +6,8 @@ interface ValidationResults {
   unmatched: Set<string>;
 }
 
-export const validate = async (options: { codeowners: string, dir: string, root?: string }): Promise<ValidationResults> => {
-  const engine = OwnershipEngine.FromCodeownersFile(options.codeowners); // Validates code owner file
+export const validate = async (options: { codeowners: string, dir: string, root?: string , allowRelativePaths: boolean}): Promise<ValidationResults> => {
+  const engine = OwnershipEngine.FromCodeownersFile(options.codeowners, options.allowRelativePaths); // Validates code owner file
 
   const filePaths = await readDir(options.dir, ['.git']);
 

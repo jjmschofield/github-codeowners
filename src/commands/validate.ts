@@ -5,6 +5,7 @@ interface ValidateOptions {
   codeowners: string;
   dir: string;
   root: string;
+  allowRelativePaths: boolean;
 }
 
 export const validate = async (options: ValidateOptions) => {

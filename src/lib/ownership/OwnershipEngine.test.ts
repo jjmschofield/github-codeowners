@@ -91,7 +91,7 @@ describe('OwnershipEngine', () => {
       readFileSyncMock.mockReturnValue(Buffer.from(codeowners));
 
       // Assert
-      expect(() => OwnershipEngine.FromCodeownersFile('some/codeowners/file')).not.toThrow();
+      expect(() => OwnershipEngine.FromCodeownersFile('some/codeowners/file', false)).not.toThrow();
     });
 
     it('should throw when provided an invalid owner', () => {
@@ -106,7 +106,7 @@ describe('OwnershipEngine', () => {
       readFileSyncMock.mockReturnValue(Buffer.from(codeowners));
 
       // Assert
-      expect(() => OwnershipEngine.FromCodeownersFile('some/codeowners/file'))
+      expect(() => OwnershipEngine.FromCodeownersFile('some/codeowners/file', false))
         .toThrowError(expectedError);
     });
 
@@ -122,7 +122,7 @@ describe('OwnershipEngine', () => {
       readFileSyncMock.mockReturnValue(Buffer.from(codeowners));
 
       // Assert
-      expect(() => OwnershipEngine.FromCodeownersFile('some/codeowners/file'))
+      expect(() => OwnershipEngine.FromCodeownersFile('some/codeowners/file', false))
         .toThrowError(expectedError);
     });
 
@@ -138,7 +138,7 @@ describe('OwnershipEngine', () => {
       readFileSyncMock.mockReturnValue(Buffer.from(codeowners));
 
       // Assert
-      expect(() => OwnershipEngine.FromCodeownersFile('some/codeowners/file'))
+      expect(() => OwnershipEngine.FromCodeownersFile('some/codeowners/file', false))
         .toThrowError(expectedError);
     });
 
@@ -155,7 +155,7 @@ describe('OwnershipEngine', () => {
       readFileSyncMock.mockReturnValue(Buffer.from(codeowners));
 
       // Assert
-      expect(() => OwnershipEngine.FromCodeownersFile('some/codeowners/file'))
+      expect(() => OwnershipEngine.FromCodeownersFile('some/codeowners/file', false))
         .toThrowError(expectedError);
     });
   });
@@ -171,7 +171,7 @@ describe('OwnershipEngine', () => {
       readFileSyncMock.mockReturnValue(Buffer.from(codeowners));
       // console.log(path, expected)
       // Act
-      const result = OwnershipEngine.FromCodeownersFile('some/codeowners/file').calcFileOwnership(path);
+      const result = OwnershipEngine.FromCodeownersFile('some/codeowners/file', false).calcFileOwnership(path);
 
       // Assert
       expect(result.length === 1).toEqual(expected);
