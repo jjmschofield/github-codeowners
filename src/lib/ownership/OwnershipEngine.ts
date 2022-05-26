@@ -62,8 +62,8 @@ export class OwnershipEngine {
 }
 
 const createMatcherCodeownersRule = (rule: string): FileOwnershipMatcher => {
-  // Split apart on spaces
-  const parts = rule.split(/\s+/);
+  // Split apart on spaces after removing supported trailing whitespace.
+  const parts = rule.replace(/\s+$/, '').split(/\s+/);
 
   // The first part is expected to be the path
   const path = parts[0];
