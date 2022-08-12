@@ -1,5 +1,8 @@
 import { OwnershipEngine } from './OwnershipEngine';
 import { readDir } from '../file/readDir';
+import fs from 'fs';
+import path from 'path';
+import ignore from 'ignore';
 
 interface ValidationResults {
   duplicated: Set<string>;
@@ -9,7 +12,16 @@ interface ValidationResults {
 export const validate = async (options: { codeowners: string, dir: string, root?: string }): Promise<ValidationResults> => {
   const engine = OwnershipEngine.FromCodeownersFile(options.codeowners); // Validates code owner file
 
-  const filePaths = await readDir(options.dir, ['.git']);
+
+  const ignores = ignore().add(['.git']);
+  try {
+    const contents = fs.readFileSync(path.resolve('.codeownersignore')).toString();
+    ignores.add(contents);
+    // tslint:disable-next-line:no-empty
+  } catch (e) {
+  }
+
+  const filePaths = await readDir(options.dir, ignores);
 
   for (const file of filePaths) {
     engine.calcFileOwnership(file); // Test each file against rule set

@@ -7,12 +7,12 @@
 A CLI tool for working with GitHub CODEOWNERS.
 
 Things it does:
-* Calculate ownership stats
-* Find out who owns each and every file (ignoring files listed in `.gitignore`)
+* Calculate ownership stats  (ignoring files listed in `.gitignore` and `.codeownersignore`)
+* Find out who owns each and every file  (ignoring files listed in `.gitignore` and `.codeownersignore`)
 * Find out who owns a single file
 * Find out who owns your staged files
 * Outputs in a bunch of script friendly handy formats for integrations (CSV and JSONL)
-* Validates that your CODEOWNERS file is valid
+* Validates that your CODEOWNERS file is valid (ignoring files listed in `.gitignore` and `.codeownersignore`)
 
 ## Installation
 Install via npm globally then run

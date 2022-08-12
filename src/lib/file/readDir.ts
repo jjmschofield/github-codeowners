@@ -2,11 +2,10 @@ import fs, { Stats } from 'fs';
 import ignore, { Ignore } from 'ignore';
 import path from 'path';
 
-export const readDir = async (dir: string, filters: string[] = []): Promise<string[]> => {
+export const readDir = async (dir: string, filters: Ignore = ignore()): Promise<string[]> => {
   return new Promise((resolve, reject) => {
     try {
-      const ignores = ignore().add(filters);
-      const files = walkDir(dir, '', ignores);
+      const files = walkDir(dir, '', filters);
       resolve(files);
     } catch (e) {
       reject(e);

@@ -29,6 +29,23 @@ unloved,0,0
 "
 `;
 
+exports[`audit csv should ignore ownership for ignored files: stderr 1`] = `""`;
+
+exports[`audit csv should ignore ownership for ignored files: stdout 1`] = `
+"
+--- Counts ---
+Total: 10 files (35 lines)
+Loved: 10 files (35 lines)
+Unloved: 0 files (0 lines)
+--- Owners ---
+@doctocat: 3 files (0 lines)
+@global-owner1: 4 files (35 lines)
+@global-owner2: 4 files (35 lines)
+@js-owner: 2 files (0 lines)
+@octocat: 1 files (0 lines)
+"
+`;
+
 exports[`audit csv should list ownership for all files: stderr 1`] = `""`;
 
 exports[`audit csv should list ownership for all files: stdout 1`] = `
@@ -87,6 +104,23 @@ exports[`audit jsonl should do all commands in combination when asked: stderr 1`
 
 exports[`audit jsonl should do all commands in combination when asked: stdout 1`] = `
 "{\\"total\\":{\\"files\\":5,\\"lines\\":2},\\"unloved\\":{\\"files\\":0,\\"lines\\":0},\\"loved\\":{\\"files\\":5,\\"lines\\":2},\\"owners\\":[{\\"owner\\":\\"@octocat\\",\\"counters\\":{\\"files\\":1,\\"lines\\":0}},{\\"owner\\":\\"@global-owner1\\",\\"counters\\":{\\"files\\":2,\\"lines\\":2}},{\\"owner\\":\\"@global-owner2\\",\\"counters\\":{\\"files\\":2,\\"lines\\":2}},{\\"owner\\":\\"@js-owner\\",\\"counters\\":{\\"files\\":2,\\"lines\\":0}}]}
+"
+`;
+
+exports[`audit jsonl should ignore ownership for ignored files: stderr 1`] = `""`;
+
+exports[`audit jsonl should ignore ownership for ignored files: stdout 1`] = `
+"
+--- Counts ---
+Total: 10 files (35 lines)
+Loved: 10 files (35 lines)
+Unloved: 0 files (0 lines)
+--- Owners ---
+@doctocat: 3 files (0 lines)
+@global-owner1: 4 files (35 lines)
+@global-owner2: 4 files (35 lines)
+@js-owner: 2 files (0 lines)
+@octocat: 1 files (0 lines)
 "
 `;
 
@@ -165,6 +199,23 @@ Unloved: 0 files (0 lines)
 --- Owners ---
 @global-owner1: 2 files (2 lines)
 @global-owner2: 2 files (2 lines)
+@js-owner: 2 files (0 lines)
+@octocat: 1 files (0 lines)
+"
+`;
+
+exports[`audit simple should ignore ownership for ignored files: stderr 1`] = `""`;
+
+exports[`audit simple should ignore ownership for ignored files: stdout 1`] = `
+"
+--- Counts ---
+Total: 10 files (35 lines)
+Loved: 10 files (35 lines)
+Unloved: 0 files (0 lines)
+--- Owners ---
+@doctocat: 3 files (0 lines)
+@global-owner1: 4 files (35 lines)
+@global-owner2: 4 files (35 lines)
 @js-owner: 2 files (0 lines)
 @octocat: 1 files (0 lines)
 "
