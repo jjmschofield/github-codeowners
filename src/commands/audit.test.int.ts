@@ -46,6 +46,15 @@ describe('audit', () => {
         expect(stderr).toMatchSnapshot('stderr');
       });
 
+      it('should ignore ownership for ignored files', async () => {
+        const { stdout, stderr } = await runCli(`audit -s ${output}`);
+        await writeFile(path.join(testDir, '.codeownersignore'), '.ignored-file\n.codeownersignore');
+        await writeFile(path.join(testDir, '.ignored-file'), 'this should be ignored');
+
+        expect(stdout).toMatchSnapshot('stdout');
+        expect(stderr).toMatchSnapshot('stderr');
+      });
+
       it('should show only unloved files when asked', async () => {
         const { stdout, stderr } = await runCli(`audit -u -o ${output}`);
         expect(stdout).toMatchSnapshot('stdout');

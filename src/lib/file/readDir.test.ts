@@ -1,6 +1,7 @@
 import fs from 'fs';
 import * as underTest from './readDir';
 import * as path from 'path';
+import ignore from 'ignore';
 
 jest.mock('fs');
 
@@ -70,7 +71,7 @@ describe('readDirRecursively', () => {
     statSyncMock.mockReturnValue(statFake(STAT_FAKE_TYPES.FILE));
 
     // Act
-    const result = await underTest.readDir('root', ['*.js']);
+    const result = await underTest.readDir('root', ignore().add(['*.js']));
 
     // Assert
     expect(result).toEqual(expectedFiles);
