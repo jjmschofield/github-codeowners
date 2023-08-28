@@ -46,6 +46,8 @@ commander.command('validate')
   .option('-d, --dir <dirPath>', 'path to VCS directory', process.cwd())
   .option('-c, --codeowners <filePath>', 'path to codeowners file (default: "<dir>/.github/CODEOWNERS")')
   .option('-r, --root <rootPath>', 'the root path to filter files by', '')
+  .option('-g, --only-git', 'consider only files tracked by git', false)
+  .option('-u, --unowned', 'all files must be owned', false)
   .action(async (options) => {
     try {
       if (!options.codeowners) {
@@ -56,7 +58,9 @@ commander.command('validate')
         options.dir = path.resolve(options.dir, options.root);
       }
 
-      await validate(options);
+      if (!(await validate(options))) {
+        process.exit(1);
+      }
     } catch (error) {
       log.error('failed to run validate command', error);
       process.exit(1);

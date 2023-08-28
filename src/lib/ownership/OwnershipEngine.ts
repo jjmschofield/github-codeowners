@@ -13,7 +13,7 @@ export class OwnershipEngine {
     this.matchers = matchers;
   }
 
-  public calcFileOwnership(filePath: string): string[] {
+  public calcFileOwnership(filePath: string): (string | null)[] {
     // We reverse the matchers so that the first matching rule encountered
     // will be the last from CODEOWNERS, respecting precedence correctly and performantly
     const matchers = [...this.matchers].reverse();
@@ -21,6 +21,9 @@ export class OwnershipEngine {
     for (const matcher of matchers) {
       if (matcher.match(filePath)) {
         matcher.matched++;
+        if (matcher.owners.length === 0) {
+          return [null];
+        }
         return matcher.owners;
       }
     }
@@ -37,7 +40,6 @@ export class OwnershipEngine {
 
     return status;
   }
-
 
   public static FromCodeownersFile(filePath: string) {
     try {

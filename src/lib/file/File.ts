@@ -4,11 +4,11 @@ import { OUTPUT_FORMAT } from '../types';
 export class File {
   // tslint:disable-next-line:variable-name
   readonly path: string;
-  readonly owners: string[];
+  readonly owners: (string | null)[];
   // tslint:disable-next-line:variable-name
   private _lines?: number;
 
-  constructor(props: { path: string, owners: string[], lines?: number | undefined }) {
+  constructor(props: { path: string, owners: (string | null)[], lines?: number | undefined }) {
     this.path = props.path;
     this.owners = props.owners;
     this._lines = props.lines;
