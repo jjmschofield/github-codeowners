@@ -161,7 +161,7 @@ describe('OwnershipEngine', () => {
 
     it('ignore trailing whitespace', () => {
       // Arrange
-      const codeowners = "some/file @org/owners ";
+      const codeowners = 'some/file @org/owners ';
 
       readFileSyncMock.mockReturnValue(Buffer.from(codeowners));
 
