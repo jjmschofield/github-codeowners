@@ -158,6 +158,17 @@ describe('OwnershipEngine', () => {
       expect(() => OwnershipEngine.FromCodeownersFile('some/codeowners/file'))
         .toThrowError(expectedError);
     });
+
+    it('ignore trailing whitespace', () => {
+      // Arrange
+      const codeowners = "some/file @org/owners ";
+
+      readFileSyncMock.mockReturnValue(Buffer.from(codeowners));
+
+      // Assert
+      expect(() => OwnershipEngine.FromCodeownersFile('some/codeowners/file'))
+        .not.toThrow();
+    });
   });
 
   describe.each<any>(patterns)('$name: "$pattern"', ({ name, pattern, paths }) => {
